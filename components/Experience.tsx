@@ -31,8 +31,17 @@ export default function Experience() {
     },
   };
 
+  const respVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.4, delay: i * 0.08 },
+    }),
+  };
+
   return (
-    <section id="experience" className="section-padding bg-gray-50 dark:bg-gray-900/50">
+    <section id="experience" className="relative section-padding bg-gray-50/50 dark:bg-gray-900/30">
       <div className="container-custom">
         <motion.div
           ref={ref}
@@ -45,6 +54,12 @@ export default function Experience() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="gradient-text">{t.experience.title}</span>
             </h2>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={isInView ? { width: 80 } : { width: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+              className="h-1 mx-auto mb-4 rounded-full bg-gradient-to-r from-primary-500 to-accent-500"
+            />
             <p className="text-xl text-gray-600 dark:text-gray-400">
               {t.experience.subtitle}
             </p>
@@ -57,8 +72,14 @@ export default function Experience() {
             animate={isInView ? 'visible' : 'hidden'}
             className="relative"
           >
-            {/* Timeline Line */}
-            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 to-accent-500"></div>
+            {/* Timeline Line — animated draw */}
+            <motion.div
+              initial={{ scaleY: 0 }}
+              animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
+              transition={{ duration: 1.2, ease: 'easeOut' }}
+              style={{ transformOrigin: 'top' }}
+              className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 to-accent-500"
+            />
 
             {t.experience.jobs.map((job, index) => (
               <motion.div
@@ -69,17 +90,19 @@ export default function Experience() {
                 }`}
               >
                 <div className={`md:w-1/2 ${index % 2 === 0 ? '' : 'md:ml-auto'}`}>
-                  {/* Timeline Dot */}
+                  {/* Timeline Dot — pulse entrance */}
                   <motion.div
                     initial={{ scale: 0 }}
-                    animate={isInView ? { scale: 1 } : { scale: 0 }}
-                    transition={{ delay: index * 0.3 + 0.2 }}
+                    animate={isInView ? { scale: [0, 1.2, 1] } : { scale: 0 }}
+                    transition={{ delay: index * 0.3 + 0.2, type: 'spring', stiffness: 300, damping: 15 }}
                     className={`absolute ${language === 'ar' ? 'right-6' : 'left-6'} md:left-1/2 top-0 w-4 h-4 -ml-2 bg-primary-600 rounded-full border-4 border-white dark:border-gray-900 shadow-lg`}
                   ></motion.div>
 
                   <motion.div
+                    initial={{ boxShadow: '-4px 0 0 0 transparent' }}
+                    animate={isInView ? { boxShadow: '-4px 0 12px -2px rgba(var(--primary-500-rgb, 99, 102, 241), 0.4)' } : {}}
+                    transition={{ delay: index * 0.3 + 0.4, duration: 0.6 }}
                     whileHover={{ scale: 1.03, y: -4 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
                     className="glass-card p-6 ml-12 md:ml-0 md:mr-8 hover:shadow-2xl transition-all duration-300"
                   >
                     {/* Company & Position */}
@@ -114,8 +137,11 @@ export default function Experience() {
                       {job.responsibilities.map((resp, idx) => (
                         <motion.li
                           key={idx}
+                          custom={idx}
+                          variants={respVariants}
+                          initial="hidden"
+                          animate={isInView ? 'visible' : 'hidden'}
                           whileHover={{ x: 4 }}
-                          transition={{ type: 'spring', stiffness: 300 }}
                           className="flex items-start gap-3 text-gray-700 dark:text-gray-300 group"
                         >
                           <div className="p-1 bg-green-100 dark:bg-green-900/30 rounded-full mt-0.5">

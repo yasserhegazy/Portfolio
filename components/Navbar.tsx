@@ -12,6 +12,7 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const t = translations[language];
 
   useEffect(() => {
@@ -20,6 +21,27 @@ export default function Navbar() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'contact'];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -60% 0px', threshold: 0 }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const navItems = [
@@ -59,28 +81,41 @@ export default function Navbar() {
               e.preventDefault();
               scrollToSection('#home');
             }}
-            className="text-2xl font-bold gradient-text"
-            whileHover={{ scale: 1.05 }}
+            className="text-3xl font-signature gradient-text"
+            whileHover={{ scale: 1.05, rotate: -2 }}
             whileTap={{ scale: 0.95 }}
           >
-            YH
+            Yasser
           </motion.a>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(item.href);
-                }}
-                className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium"
-              >
-                {item.name}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              const sectionId = item.href.replace('#', '');
+              const isActive = activeSection === sectionId;
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection(item.href);
+                  }}
+                  className={`relative text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium pb-1 ${
+                    isActive ? 'text-primary-600 dark:text-primary-400' : ''
+                  }`}
+                >
+                  {item.name}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNavIndicator"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-full"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </a>
+              );
+            })}
           </div>
 
           {/* Actions */}
@@ -90,7 +125,7 @@ export default function Navbar() {
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
-              className="p-2.5 rounded-xl bg-gradient-to-br from-primary-50 to-blue-50 dark:from-primary-900/30 dark:to-blue-900/30 hover:from-primary-100 hover:to-blue-100 dark:hover:from-primary-800/40 dark:hover:to-blue-800/40 transition-all shadow-sm hover:shadow-md"
+              className="p-2.5 rounded-xl bg-primary-100 dark:bg-gray-800 border border-primary-200 dark:border-gray-700 hover:bg-primary-200 dark:hover:bg-gray-700 transition-all shadow-sm hover:shadow-md"
               aria-label="Toggle language"
             >
               <Globe className="w-5 h-5 text-primary-600 dark:text-primary-400" />
@@ -101,7 +136,7 @@ export default function Navbar() {
               whileHover={{ scale: 1.1, rotate: -5 }}
               whileTap={{ scale: 0.95 }}
               onClick={toggleTheme}
-              className="p-2.5 rounded-xl bg-gradient-to-br from-accent-50 to-purple-50 dark:from-accent-900/30 dark:to-purple-900/30 hover:from-accent-100 hover:to-purple-100 dark:hover:from-accent-800/40 dark:hover:to-purple-800/40 transition-all shadow-sm hover:shadow-md"
+              className="p-2.5 rounded-xl bg-accent-100 dark:bg-gray-800 border border-accent-200 dark:border-gray-700 hover:bg-accent-200 dark:hover:bg-gray-700 transition-all shadow-sm hover:shadow-md"
               aria-label="Toggle theme"
             >
               {theme === 'light' ? (

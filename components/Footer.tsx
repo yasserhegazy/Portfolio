@@ -2,7 +2,7 @@
 
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/translations';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowUp, Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function Footer() {
@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold gradient-text mb-4">
+            <h3 className="text-3xl font-signature gradient-text mb-4">
               Yasser Hegazy
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
@@ -37,6 +37,13 @@ export default function Footer() {
                 <Mail className="w-4 h-4" />
                 yasseranahegazy@gmail.com
               </a>
+              <a
+                href="tel:+9705677773368"
+                className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >
+                <Phone className="w-4 h-4" />
+                +970 56 7777 368
+              </a>
             </div>
           </div>
 
@@ -52,7 +59,7 @@ export default function Footer() {
                 href="https://github.com/YasserHegazy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 hover:from-gray-100 hover:to-gray-200 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all shadow-sm hover:shadow-md"
+                className="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all shadow-sm hover:shadow-md"
                 aria-label="GitHub"
               >
                 <Github className="w-5 h-5 text-gray-700 dark:text-gray-300" />
@@ -63,7 +70,7 @@ export default function Footer() {
                 href="https://www.linkedin.com/in/yasser-hegazy/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 hover:from-blue-100 hover:to-blue-200 dark:hover:from-blue-800/40 dark:hover:to-blue-700/40 transition-all shadow-sm hover:shadow-md"
+                className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-800/50 hover:bg-blue-100 dark:hover:bg-blue-800/50 transition-all shadow-sm hover:shadow-md"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5 text-blue-600 dark:text-blue-400" />
@@ -77,6 +84,15 @@ export default function Footer() {
             <p className="text-gray-600 dark:text-gray-400 text-sm">
               © {currentYear} Yasser Hegazy. {t.footer.rights}
             </p>
+            <motion.button
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="p-2.5 rounded-xl bg-primary-50 dark:bg-primary-900/50 border border-primary-200 dark:border-primary-800/50 hover:bg-primary-100 dark:hover:bg-primary-800/50 transition-all shadow-sm hover:shadow-md"
+              aria-label="Back to top"
+            >
+              <ArrowUp className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+            </motion.button>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
               {t.footer.builtWith}
             </p>

@@ -32,6 +32,8 @@ export default function About() {
     },
   };
 
+  const paragraphs = [t.about.description, t.about.paragraph1, t.about.paragraph2];
+
   const infoItems = [
     {
       icon: MapPin,
@@ -51,7 +53,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="section-padding bg-gray-50 dark:bg-gray-900/50">
+    <section id="about" className="relative section-padding bg-gray-50/50 dark:bg-gray-900/30">
       <div className="container-custom">
         <motion.div
           ref={ref}
@@ -64,6 +66,12 @@ export default function About() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="gradient-text">{t.about.title}</span>
             </h2>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={isInView ? { width: 80 } : { width: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+              className="h-1 mx-auto mb-4 rounded-full bg-gradient-to-r from-primary-500 to-accent-500"
+            />
             <p className="text-xl text-gray-600 dark:text-gray-400">
               {t.about.subtitle}
             </p>
@@ -72,18 +80,17 @@ export default function About() {
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Content */}
             <motion.div variants={itemVariants} className="space-y-6">
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                {t.about.description}
-              </p>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                {t.about.paragraph1}
-              </p>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                {t.about.paragraph2}
-              </p>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                {t.about.paragraph3}
-              </p>
+              {paragraphs.map((text, index) => (
+                <motion.p
+                  key={index}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                  transition={{ duration: 0.6, delay: 0.3 + index * 0.15 }}
+                  className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed"
+                >
+                  {text}
+                </motion.p>
+              ))}
             </motion.div>
 
             {/* Info Cards */}
@@ -91,8 +98,10 @@ export default function About() {
               {infoItems.map((item, index) => (
                 <motion.div
                   key={index}
+                  initial={{ opacity: 0, rotate: -2, scale: 0.95 }}
+                  animate={isInView ? { opacity: 1, rotate: 0, scale: 1 } : { opacity: 0, rotate: -2, scale: 0.95 }}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.15 }}
                   whileHover={{ scale: 1.02, y: -4 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
                   className="glass-card p-6 hover:shadow-2xl transition-shadow duration-300"
                 >
                   <div className="flex items-start gap-4">

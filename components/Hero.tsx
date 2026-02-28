@@ -3,8 +3,38 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/translations';
 import { motion } from 'framer-motion';
-import { Download, Mail, ArrowRight } from 'lucide-react';
+import { Download, Mail } from 'lucide-react';
 import Image from 'next/image';
+import ParticleBackground from '@/components/ui/ParticleBackground';
+import TypeWriter from '@/components/ui/TypeWriter';
+
+const nameVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.04 },
+  },
+};
+
+const letterVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', damping: 12, stiffness: 200 },
+  },
+};
+
+const ctaContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const ctaItemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
 
 export default function Hero() {
   const { language } = useLanguage();
@@ -17,35 +47,15 @@ export default function Hero() {
     }
   };
 
+  const isArabic = language === 'ar';
+  const nameSegments = isArabic ? t.hero.name.split(' ') : t.hero.name.split('');
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Animated Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-accent-50 dark:from-gray-950 dark:via-gray-900 dark:to-primary-950"></div>
-        <motion.div
-          className="absolute top-20 left-20 w-72 h-72 bg-primary-400/30 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-20 w-96 h-96 bg-accent-400/30 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
+        <ParticleBackground className="absolute inset-0" />
       </div>
 
       <div className="container-custom">
@@ -67,18 +77,40 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              variants={nameVariants}
+              initial="hidden"
+              animate="visible"
               className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
             >
-              <span className="gradient-text">{t.hero.name}</span>
+              {nameSegments.map((segment, i) => (
+                <motion.span
+                  key={i}
+                  variants={letterVariants}
+                  className="gradient-text inline-block"
+                  style={isArabic ? (i < nameSegments.length - 1 ? { marginInlineEnd: '0.3em' } : undefined) : (segment === ' ' ? { width: '0.3em' } : undefined)}
+                >
+                  {isArabic ? segment : (segment === ' ' ? '\u00A0' : segment)}
+                </motion.span>
+              ))}
             </motion.h1>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="mb-2"
+            >
+              <span className="text-2xl md:text-3xl font-bold gradient-text">
+                <TypeWriter
+                  words={['Backend Engineer', 'System Designer', 'API Architect', 'Problem Solver']}
+                />
+              </span>
+            </motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.45 }}
               className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-4 font-medium"
             >
               {t.hero.tagline}
@@ -95,13 +127,14 @@ export default function Hero() {
 
             {/* CTAs */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
+              variants={ctaContainerVariants}
+              initial="hidden"
+              animate="visible"
               className="flex flex-wrap gap-4 justify-center lg:justify-start"
             >
               <motion.a
-                whileHover={{ scale: 1.05 }}
+                variants={ctaItemVariants}
+                whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(99, 102, 241, 0.4)' }}
                 whileTap={{ scale: 0.95 }}
                 href="/cv/yasser-hegazy-cv.pdf"
                 download
@@ -112,7 +145,8 @@ export default function Hero() {
               </motion.a>
 
               <motion.button
-                whileHover={{ scale: 1.05 }}
+                variants={ctaItemVariants}
+                whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(156, 163, 175, 0.3)' }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => scrollToSection('#contact')}
                 className="group px-8 py-4 glass-card hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full font-semibold transition-all flex items-center gap-2 shadow-lg hover:shadow-xl"
@@ -121,39 +155,64 @@ export default function Hero() {
                 {t.hero.contactMe}
               </motion.button>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => scrollToSection('#projects')}
-                className="group px-8 py-4 bg-gradient-to-r from-accent-600 to-accent-700 hover:from-accent-700 hover:to-accent-800 text-white rounded-full font-semibold transition-all flex items-center gap-2 shadow-xl hover:shadow-2xl"
-              >
-                {t.hero.viewProjects}
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </motion.button>
             </motion.div>
           </motion.div>
 
           {/* Image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="relative"
+            transition={{ delay: 0.4, duration: 1, type: 'spring', damping: 12, stiffness: 80 }}
+            className="relative flex items-center justify-center"
           >
-            <div className="relative w-full max-w-md mx-auto aspect-square">
+            <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
+              {/* Pulsing glow */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-primary-500 to-accent-500 rounded-full blur-2xl opacity-30"
+                className="absolute inset-0 bg-gradient-to-br from-primary-400 to-accent-400 rounded-full blur-3xl"
                 animate={{
-                  scale: [1, 1.1, 1],
-                  rotate: [0, 90, 0],
+                  opacity: [0.2, 0.35, 0.2],
+                  scale: [0.9, 1.1, 0.9],
                 }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
               />
-              <div className="relative rounded-full overflow-hidden shadow-2xl border-4 border-white/20 dark:border-gray-800/50">
+
+              {/* Orbiting dots */}
+              {[0, 1, 2].map((i) => (
+                <motion.div
+                  key={i}
+                  className="absolute inset-0"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 10 + i * 4, repeat: Infinity, ease: 'linear' }}
+                >
+                  <div
+                    className={`absolute w-3 h-3 rounded-full shadow-lg ${
+                      i === 0 ? 'bg-primary-500 top-0 left-1/2 -translate-x-1/2' :
+                      i === 1 ? 'bg-accent-500 bottom-4 right-0' :
+                      'bg-pink-500 bottom-4 left-0'
+                    }`}
+                  />
+                </motion.div>
+              ))}
+
+              {/* Rotating gradient border ring */}
+              <motion.div
+                className="absolute -inset-2 rounded-full"
+                style={{
+                  background: 'conic-gradient(from 0deg, #6366f1, #ec4899, #8b5cf6, #6366f1)',
+                  padding: '3px',
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+              >
+                <div className="w-full h-full rounded-full bg-white dark:bg-gray-900" />
+              </motion.div>
+
+              {/* Image with float */}
+              <motion.div
+                className="relative rounded-full overflow-hidden shadow-2xl"
+                animate={{ y: [0, -10, 0], rotate: [0, 1, 0, -1, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              >
                 <Image
                   src="/images/profile.jpg"
                   alt="Yasser Hegazy"
@@ -162,7 +221,7 @@ export default function Hero() {
                   className="w-full h-full object-cover"
                   priority
                 />
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
@@ -178,12 +237,12 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-gray-400 dark:border-gray-600 flex items-start justify-center p-2"
+          className="w-7 h-11 rounded-full border-2 border-primary-400 dark:border-primary-500 flex items-start justify-center p-2 shadow-lg"
         >
           <motion.div
             animate={{ height: ['20%', '80%', '20%'] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1 bg-gray-400 dark:bg-gray-600 rounded-full"
+            className="w-1 bg-primary-400 dark:bg-primary-500 rounded-full"
           />
         </motion.div>
       </motion.div>
