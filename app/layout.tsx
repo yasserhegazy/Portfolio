@@ -1,13 +1,16 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Dancing_Script } from 'next/font/google';
 import './globals.css';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FloatingActions from '@/components/FloatingActions';
+import ScrollProgress from '@/components/ui/ScrollProgress';
+import PageLoader from '@/components/ui/PageLoader';
 
 const inter = Inter({ subsets: ['latin'] });
+const dancingScript = Dancing_Script({ subsets: ['latin'], variable: '--font-signature' });
 
 export const metadata: Metadata = {
   title: 'Yasser Hegazy | Backend Software Engineer',
@@ -41,9 +44,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} ${dancingScript.variable}`}>
         <ThemeProvider>
           <LanguageProvider>
+            <PageLoader />
+            <ScrollProgress />
             <div className="min-h-screen flex flex-col">
               <Navbar />
               <main className="flex-grow">
