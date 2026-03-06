@@ -20,7 +20,7 @@ export default function Footer() {
               Yasser Hegazy
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Backend Software Engineer
+              {t.footer.role}
             </p>
           </div>
 
@@ -38,7 +38,7 @@ export default function Footer() {
                 yasseranahegazy@gmail.com
               </a>
               <a
-                href="tel:+9705677773368"
+                href="tel:+972567777368"
                 className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
               >
                 <Phone className="w-4 h-4" />
@@ -50,7 +50,7 @@ export default function Footer() {
           {/* Social */}
           <div>
             <h4 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">
-              Social
+              {t.footer.social}
             </h4>
             <div className="flex gap-4">
               <motion.a

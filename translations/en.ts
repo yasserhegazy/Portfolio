@@ -258,6 +258,7 @@ export const en = {
     title: 'GitHub Statistics',
     subtitle: 'Code contributions and activity',
     username: 'yasserhegazy',
+    viewProfile: 'View GitHub Profile',
   },
   contact: {
     title: 'Get In Touch',
@@ -272,18 +273,23 @@ export const en = {
     info: {
       email: 'yasseranahegazy@gmail.com',
       phone: '+972 567777368',
+      phoneLabel: 'Phone',
       location: 'Palestine',
       availability: 'Available for opportunities',
+      whatsapp: 'Hire Me',
     },
   },
   footer: {
     rights: 'All rights reserved.',
     builtWith: 'Built with Next.js, TypeScript, and Tailwind CSS',
+    social: 'Social',
+    role: 'Backend Software Engineer',
   },
   floating: {
     downloadCV: 'Download CV',
     contact: 'Contact',
     linkedin: 'LinkedIn',
+    whatsapp: 'WhatsApp',
   },
 };
 

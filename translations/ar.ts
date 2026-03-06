@@ -260,6 +260,7 @@ export const ar: TranslationType = {
     title: 'إحصائيات GitHub',
     subtitle: 'المساهمات والنشاط البرمجي',
     username: 'yasserhegazy',
+    viewProfile: 'عرض ملف GitHub',
   },
   contact: {
     title: 'تواصل معي',
@@ -274,17 +275,22 @@ export const ar: TranslationType = {
     info: {
       email: 'yasseranahegazy@gmail.com',
       phone: '+972 567777368',
+      phoneLabel: 'الهاتف',
       location: 'قطاع غزة، فلسطين',
       availability: 'متاح للفرص',
+      whatsapp: 'وظّفني ',
     },
   },
   footer: {
     rights: 'جميع الحقوق محفوظة.',
     builtWith: 'مبني بـ Next.js و TypeScript و Tailwind CSS',
+    social: 'التواصل الاجتماعي',
+    role: 'مهندس برمجيات خلفية',
   },
   floating: {
     downloadCV: 'تحميل السيرة الذاتية',
     contact: 'تواصل',
     linkedin: 'LinkedIn',
+    whatsapp: 'واتساب',
   },
 };
