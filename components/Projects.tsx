@@ -4,7 +4,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/translations';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useCallback } from 'react';
-import { ExternalLink, X, Cpu } from 'lucide-react';
+import { ExternalLink, X, Cpu, Github, Globe } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Projects() {
   const { language } = useLanguage();
@@ -55,6 +56,10 @@ export default function Projects() {
     }),
   };
 
+  const isMultiRepo = (github: string | { frontend: string; backend: string }): github is { frontend: string; backend: string } => {
+    return typeof github === 'object';
+  };
+
   return (
     <section id="projects" className="relative section-padding">
       <div className="container-custom">
@@ -99,48 +104,63 @@ export default function Projects() {
                   transition: 'transform 0.15s ease-out',
                 }}
                 whileHover={{ y: -12, scale: 1.02 }}
-                className="glass-card p-6 cursor-pointer group hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-primary-200 dark:hover:border-primary-700 rounded-xl"
+                className="glass-card cursor-pointer group hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-primary-200 dark:hover:border-primary-700 rounded-xl overflow-hidden"
                 onClick={() => setSelectedProject(project.id)}
               >
-                {/* Project Header */}
-                <div className="mb-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="p-2 bg-gradient-to-br from-primary-500 to-primary-600 dark:from-primary-600 dark:to-primary-700 rounded-lg shadow-md">
-                      <Cpu className="w-4 h-4 text-white" />
+                {/* Project Image Banner */}
+                <div className="relative w-full aspect-video overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+
+                {/* Project Content */}
+                <div className="p-6">
+                  {/* Project Header */}
+                  <div className="mb-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="p-2 bg-gradient-to-br from-primary-500 to-primary-600 dark:from-primary-600 dark:to-primary-700 rounded-lg shadow-md">
+                        <Cpu className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-sm text-primary-600 dark:text-primary-400 font-semibold">
+                        {project.subtitle}
+                      </span>
                     </div>
-                    <span className="text-sm text-primary-600 dark:text-primary-400 font-semibold">
-                      {project.subtitle}
-                    </span>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3 leading-relaxed">
+                      {project.description}
+                    </p>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3 leading-relaxed">
-                    {project.description}
-                  </p>
-                </div>
 
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.techStack.slice(0, 3).map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="px-3 py-1 bg-primary-100 dark:bg-gray-800 text-primary-700 dark:text-gray-300 rounded-lg text-xs font-medium border border-primary-200 dark:border-gray-600"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.techStack.length > 3 && (
-                    <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-lg text-xs font-medium border border-gray-200 dark:border-gray-600">
-                      +{project.techStack.length - 3}
-                    </span>
-                  )}
-                </div>
+                  {/* Tech Stack */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.techStack.slice(0, 3).map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="px-3 py-1 bg-primary-100 dark:bg-gray-800 text-primary-700 dark:text-gray-300 rounded-lg text-xs font-medium border border-primary-200 dark:border-gray-600"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.techStack.length > 3 && (
+                      <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-lg text-xs font-medium border border-gray-200 dark:border-gray-600">
+                        +{project.techStack.length - 3}
+                      </span>
+                    )}
+                  </div>
 
-                {/* View Details */}
-                <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold text-sm group-hover:gap-3 transition-all">
-                  <span>{t.projects.viewDetails}</span>
-                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  {/* View Details */}
+                  <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold text-sm group-hover:gap-3 transition-all">
+                    <span>{t.projects.viewDetails}</span>
+                    <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -174,10 +194,29 @@ export default function Projects() {
                 if (!project) return null;
 
                 return (
-                  <div className="p-6 md:p-8">
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-6">
-                      <div>
+                  <div>
+                    {/* Modal Image */}
+                    <div className="relative w-full aspect-video rounded-t-2xl overflow-hidden">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 768px"
+                        priority
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                      <button
+                        onClick={() => setSelectedProject(null)}
+                        className="absolute top-4 end-4 p-2 bg-black/40 hover:bg-black/60 backdrop-blur-sm rounded-lg transition-colors"
+                      >
+                        <X className="w-5 h-5 text-white" />
+                      </button>
+                    </div>
+
+                    <div className="p-6 md:p-8">
+                      {/* Header */}
+                      <div className="mb-6">
                         <span className="text-sm text-primary-600 dark:text-primary-400 font-semibold">
                           {project.subtitle}
                         </span>
@@ -185,68 +224,99 @@ export default function Projects() {
                           {project.title}
                         </h2>
                       </div>
-                      <button
-                        onClick={() => setSelectedProject(null)}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-                      >
-                        <X className="w-6 h-6" />
-                      </button>
-                    </div>
 
-                    {/* Description */}
-                    <p className="text-gray-700 dark:text-gray-300 mb-6">
-                      {project.description}
-                    </p>
+                      {/* Description */}
+                      <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                        {project.description}
+                      </p>
 
-                    {/* Tech Stack */}
-                    <div className="mb-6">
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
-                        {t.projects.techStack}
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {project.techStack.map((tech, idx) => (
-                          <motion.span
-                            key={idx}
-                            custom={idx}
-                            variants={modalTechVariants}
-                            initial="hidden"
-                            animate="visible"
-                            className="px-3 py-1.5 bg-primary-100 dark:bg-gray-800 text-primary-700 dark:text-gray-300 rounded-lg text-sm font-medium border border-primary-200 dark:border-gray-600"
+                      {/* Tech Stack */}
+                      <div className="mb-6">
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
+                          {t.projects.techStack}
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                          {project.techStack.map((tech, idx) => (
+                            <motion.span
+                              key={idx}
+                              custom={idx}
+                              variants={modalTechVariants}
+                              initial="hidden"
+                              animate="visible"
+                              className="px-3 py-1.5 bg-primary-100 dark:bg-gray-800 text-primary-700 dark:text-gray-300 rounded-lg text-sm font-medium border border-primary-200 dark:border-gray-600"
+                            >
+                              {tech}
+                            </motion.span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Architecture */}
+                      <div className="mb-6">
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
+                          {t.projects.architecture}
+                        </h3>
+                        <ul className="space-y-2">
+                          {project.architecture.map((item, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-start gap-2 text-gray-700 dark:text-gray-300"
+                            >
+                              <span className="w-1.5 h-1.5 bg-primary-600 rounded-full mt-2 flex-shrink-0"></span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex flex-wrap gap-3">
+                        {/* Live Demo */}
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-xl"
+                        >
+                          <Globe className="w-5 h-5" />
+                          {t.projects.viewLive}
+                        </a>
+
+                        {/* GitHub Links */}
+                        {isMultiRepo(project.github) ? (
+                          <>
+                            <a
+                              href={project.github.frontend}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 px-5 py-3 bg-gray-900 dark:bg-gray-700 hover:bg-gray-800 dark:hover:bg-gray-600 text-white rounded-lg font-medium transition-colors"
+                            >
+                              <Github className="w-5 h-5" />
+                              {t.projects.frontendRepo}
+                            </a>
+                            <a
+                              href={project.github.backend}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 px-5 py-3 bg-gray-900 dark:bg-gray-700 hover:bg-gray-800 dark:hover:bg-gray-600 text-white rounded-lg font-medium transition-colors"
+                            >
+                              <Github className="w-5 h-5" />
+                              {t.projects.backendRepo}
+                            </a>
+                          </>
+                        ) : (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-gray-700 hover:bg-gray-800 dark:hover:bg-gray-600 text-white rounded-lg font-medium transition-colors"
                           >
-                            {tech}
-                          </motion.span>
-                        ))}
+                            <Github className="w-5 h-5" />
+                            {t.projects.viewGithub}
+                          </a>
+                        )}
                       </div>
                     </div>
-
-                    {/* Architecture */}
-                    <div className="mb-6">
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
-                        {t.projects.architecture}
-                      </h3>
-                      <ul className="space-y-2">
-                        {project.architecture.map((item, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-start gap-2 text-gray-700 dark:text-gray-300"
-                          >
-                            <span className="w-1.5 h-1.5 bg-primary-600 rounded-full mt-2 flex-shrink-0"></span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* GitHub Link */}
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition-colors"
-                    >
-                      <ExternalLink className="w-5 h-5" />
-                      {t.projects.viewGithub}
-                    </a>
                   </div>
                 );
               })()}
