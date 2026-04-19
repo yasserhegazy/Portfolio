@@ -23,7 +23,7 @@ export const en = {
   },
   about: {
     title: 'About Me',
-    subtitle: 'Backend Software Engineer & Computer Engineering Student',
+    subtitle: 'Backend Software Engineer & Computer Engineering Graduate',
     description: 'Backend Software Engineer with 3+ years of experience building intelligent systems using Python (FastAPI, Django REST Framework) and PHP (Laravel). Strong in RESTful APIs, database design, and scalable backend architecture, with solid knowledge of authentication and API security fundamentals.',
     paragraph1: 'Experienced in developing backend services with secure authentication flows, role-based access control, and REST APIs consumed by frontend applications. Design relational database schemas and optimize queries to support scalability, data integrity, and high-read workloads.',
     paragraph2: 'Passionate about backend development and scalable systems and building reliable infrastructure for intelligent products. Actively studying backend systems, microservices, retrieval systems, and experimenting with integrating intelligent systems into real products.',
@@ -230,7 +230,7 @@ export const en = {
     subtitle: 'Academic achievements and professional development',
     degree: 'B.Eng. Computer Engineering',
     university: 'Islamic University of Gaza',
-    period: 'Jan 2021 - Feb 2026',
+    period: 'Sep 2021 - Feb 2026',
     gpa: 'GPA: 92.54/100 (3.8/4.0)',
     achievement: 'Ranked 2nd in Department',
     description: 'Pursuing Computer Engineering with strong academic performance across software, hardware, and AI-focused courses. Built solid foundations in data structures, algorithms, operating systems, computer architecture, control systems, digital electronics, networks, security, and software engineering principles. Engaged in hands-on projects including backend systems, embedded workflows, and AI orchestration, applying theoretical knowledge to real-world challenges.',
