@@ -13,23 +13,23 @@ const inter = Inter({ subsets: ['latin'] });
 const dancingScript = Dancing_Script({ subsets: ['latin'], variable: '--font-signature' });
 
 export const metadata: Metadata = {
-  title: 'Yasser Hegazy | Backend Software Engineer',
-  description: 'Backend Software Engineer specializing in Laravel, Django, FastAPI, and modern API architectures. Building secure, scalable, production-ready systems.',
-  keywords: ['Backend Engineer', 'Software Engineer', 'Laravel', 'Django', 'FastAPI', 'PHP', 'Python', 'REST API', 'Yasser Hegazy'],
+  title: 'Yasser Hegazy | Software Engineer',
+  description: 'Software Engineer and Full-Stack Engineer building SaaS platforms, RESTful APIs, dashboards, AI integrations, and database-driven web applications.',
+  keywords: ['Software Engineer', 'Full-Stack Engineer', 'Laravel', 'FastAPI', 'Next.js', 'React', 'TypeScript', 'PHP', 'Python', 'REST API', 'SaaS', 'AI Integration', 'Yasser Hegazy'],
   authors: [{ name: 'Yasser Hegazy' }],
   creator: 'Yasser Hegazy',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://yasserhegazy.com',
-    title: 'Yasser Hegazy | Backend Software Engineer',
-    description: 'Backend Software Engineer specializing in Laravel, Django, FastAPI, and modern API architectures.',
+    title: 'Yasser Hegazy | Software Engineer',
+    description: 'Software Engineer and Full-Stack Engineer building SaaS platforms, APIs, dashboards, and AI-integrated web applications.',
     siteName: 'Yasser Hegazy Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Yasser Hegazy | Backend Software Engineer',
-    description: 'Backend Software Engineer specializing in Laravel, Django, FastAPI, and modern API architectures.',
+    title: 'Yasser Hegazy | Software Engineer',
+    description: 'Software Engineer and Full-Stack Engineer building SaaS platforms, APIs, dashboards, and AI-integrated web applications.',
   },
   robots: {
     index: true,
