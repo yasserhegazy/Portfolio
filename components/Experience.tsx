@@ -124,7 +124,17 @@ export default function Experience() {
                     <div className="flex flex-wrap gap-4 mb-4 text-sm text-gray-600 dark:text-gray-400">
                       <div className="flex items-center gap-1">
                         <Calendar className="w-4 h-4" />
-                        {job.period}
+                        {job.period.includes('Present') || job.period.includes('الحالي') ? (
+                          <span className="flex items-center gap-1.5">
+                            {job.period}
+                            <span className="relative flex h-2.5 w-2.5">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                            </span>
+                          </span>
+                        ) : (
+                          job.period
+                        )}
                       </div>
                       <div className="flex items-center gap-1">
                         <MapPin className="w-4 h-4" />

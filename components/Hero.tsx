@@ -3,7 +3,7 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/translations';
 import { motion } from 'framer-motion';
-import { Download, Mail } from 'lucide-react';
+import { Download, Mail, Briefcase, MapPin } from 'lucide-react';
 import Image from 'next/image';
 import ParticleBackground from '@/components/ui/ParticleBackground';
 import TypeWriter from '@/components/ui/TypeWriter';
@@ -125,6 +125,26 @@ export default function Hero() {
               &quot;{t.hero.philosophy}&quot;
             </motion.p>
 
+            {/* Availability Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55 }}
+              className="flex flex-wrap items-center gap-3 justify-center lg:justify-start mb-8"
+            >
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold border border-green-200 dark:border-green-800/50">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+                </span>
+                {t.hero.availableStatus}
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-sm font-semibold border border-blue-200 dark:border-blue-800/50">
+                <MapPin className="w-3.5 h-3.5" />
+                {t.hero.openToRemote}
+              </span>
+            </motion.div>
+
             {/* CTAs */}
             <motion.div
               variants={ctaContainerVariants}
@@ -154,6 +174,19 @@ export default function Hero() {
                 <Mail className="w-5 h-5" />
                 {t.hero.contactMe}
               </motion.button>
+
+              <motion.a
+                variants={ctaItemVariants}
+                whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(37, 211, 102, 0.4)' }}
+                whileTap={{ scale: 0.95 }}
+                href="https://api.whatsapp.com/send/?phone=972567777368"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full font-semibold transition-all flex items-center gap-2 shadow-xl hover:shadow-2xl"
+              >
+                <Briefcase className="w-5 h-5" />
+                {t.hero.hireMe}
+              </motion.a>
 
             </motion.div>
           </motion.div>

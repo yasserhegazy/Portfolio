@@ -2,7 +2,7 @@
 
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/translations';
-import { Download, Mail, Linkedin } from 'lucide-react';
+import { Download, Mail, Linkedin, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function FloatingActions() {
@@ -29,6 +29,13 @@ export default function FloatingActions() {
       href: 'https://www.linkedin.com/in/yasser-hegazy/',
       target: '_blank',
       className: 'bg-blue-600 hover:bg-blue-700 text-white',
+    },
+    {
+      icon: MessageCircle,
+      label: t.floating.whatsapp,
+      href: 'https://api.whatsapp.com/send/?phone=972567777368',
+      target: '_blank',
+      className: 'bg-green-500 hover:bg-green-600 text-white',
     },
   ];
 

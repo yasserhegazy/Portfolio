@@ -4,7 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/translations';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-import { Mail, MapPin, Send, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle, Phone, MessageCircle } from 'lucide-react';
 
 export default function Contact() {
   const { language } = useLanguage();
@@ -152,6 +152,48 @@ export default function Contact() {
                     </p>
                   </div>
                 </motion.div>
+
+                <motion.div
+                  whileHover={{ x: 8, scale: 1.02 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                  className="flex items-center gap-4 p-5 glass-card rounded-xl hover:shadow-xl transition-all duration-300 border border-transparent hover:border-primary-200 dark:hover:border-primary-700"
+                >
+                  <div className="p-4 bg-gradient-to-br from-primary-400 to-primary-500 dark:from-primary-500 dark:to-primary-600 rounded-xl shadow-lg">
+                    <Phone className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                      {t.contact.info.phoneLabel}
+                    </p>
+                    <a
+                      href={`tel:${t.contact.info.phone.replace(/\s/g, '')}`}
+                      className="text-gray-900 dark:text-gray-100 font-semibold hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                    >
+                      {t.contact.info.phone}
+                    </a>
+                  </div>
+                </motion.div>
+
+                <motion.a
+                  href="https://api.whatsapp.com/send/?phone=972567777368"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ x: 8, scale: 1.02 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                  className="flex items-center gap-4 p-5 glass-card rounded-xl hover:shadow-xl transition-all duration-300 border border-transparent hover:border-green-200 dark:hover:border-green-700"
+                >
+                  <div className="p-4 bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg">
+                    <MessageCircle className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                      WhatsApp
+                    </p>
+                    <p className="text-gray-900 dark:text-gray-100 font-semibold">
+                      {t.contact.info.whatsapp}
+                    </p>
+                  </div>
+                </motion.a>
               </div>
             </motion.div>
 

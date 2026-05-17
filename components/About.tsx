@@ -5,7 +5,7 @@ import { translations } from '@/translations';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { MapPin, GraduationCap, Languages } from 'lucide-react';
+import { MapPin, GraduationCap, Languages, Phone } from 'lucide-react';
 
 export default function About() {
   const { language } = useLanguage();
@@ -32,7 +32,7 @@ export default function About() {
     },
   };
 
-  const paragraphs = [t.about.description, t.about.paragraph1, t.about.paragraph2];
+  const paragraphs = [t.about.description, t.about.paragraph1, t.about.paragraph2, t.about.paragraph3];
 
   const infoItems = [
     {
@@ -49,6 +49,11 @@ export default function About() {
       icon: Languages,
       label: t.about.languages,
       value: t.about.languagesValue,
+    },
+    {
+      icon: Phone,
+      label: t.about.phone,
+      value: t.about.phoneValue,
     },
   ];
 
