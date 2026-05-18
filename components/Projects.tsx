@@ -56,7 +56,7 @@ export default function Projects() {
     }),
   };
 
-  const isMultiRepo = (github: string | { frontend: string; backend: string }): github is { frontend: string; backend: string } => {
+  const isMultiRepo = (github: string | { frontend: string; backend: string } | null): github is { frontend: string; backend: string } => {
     return typeof github === 'object';
   };
 
@@ -283,7 +283,7 @@ export default function Projects() {
                         </a>
 
                         {/* GitHub Links */}
-                        {isMultiRepo(project.github) ? (
+                        {project.github && isMultiRepo(project.github) ? (
                           <>
                             <a
                               href={project.github.frontend}
@@ -304,7 +304,7 @@ export default function Projects() {
                               {t.projects.backendRepo}
                             </a>
                           </>
-                        ) : (
+                        ) : project.github ? (
                           <a
                             href={project.github}
                             target="_blank"
@@ -314,7 +314,7 @@ export default function Projects() {
                             <Github className="w-5 h-5" />
                             {t.projects.viewGithub}
                           </a>
-                        )}
+                        ) : null}
                       </div>
                     </div>
                   </div>

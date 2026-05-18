@@ -99,12 +99,9 @@
   }
 }
 
-/* Inter Font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
 /* Signature Font */
 .font-signature {
-  font-family: var(--font-signature), cursive;
+  font-family: "Brush Script MT", "Segoe Script", cursive;
 }
 
 /* Marquee Animation */

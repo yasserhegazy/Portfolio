@@ -4,7 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/translations';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-import { Mail, MapPin, Send, CheckCircle, Phone, MessageCircle } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle, Phone, MessageCircle, ExternalLink } from 'lucide-react';
 
 export default function Contact() {
   const { language } = useLanguage();
@@ -175,7 +175,7 @@ export default function Contact() {
                 </motion.div>
 
                 <motion.a
-                  href="https://api.whatsapp.com/send/?phone=972567777368"
+                  href="https://api.whatsapp.com/send/?phone=970567777368"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ x: 8, scale: 1.02 }}
@@ -191,6 +191,48 @@ export default function Contact() {
                     </p>
                     <p className="text-gray-900 dark:text-gray-100 font-semibold">
                       {t.contact.info.whatsapp}
+                    </p>
+                  </div>
+                </motion.a>
+
+                <motion.a
+                  href="https://mostaql.com/u/YHegazy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ x: 8, scale: 1.02 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                  className="flex items-center gap-4 p-5 glass-card rounded-xl hover:shadow-xl transition-all duration-300 border border-transparent hover:border-primary-200 dark:hover:border-primary-700"
+                >
+                  <div className="p-4 bg-gradient-to-br from-primary-500 to-accent-600 rounded-xl shadow-lg">
+                    <ExternalLink className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                      Freelance
+                    </p>
+                    <p className="text-gray-900 dark:text-gray-100 font-semibold">
+                      {t.contact.info.mostaql}
+                    </p>
+                  </div>
+                </motion.a>
+
+                <motion.a
+                  href="https://upwork.com/freelancers/~01122d39b9a2ff1593"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ x: 8, scale: 1.02 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                  className="flex items-center gap-4 p-5 glass-card rounded-xl hover:shadow-xl transition-all duration-300 border border-transparent hover:border-accent-200 dark:hover:border-accent-700"
+                >
+                  <div className="p-4 bg-gradient-to-br from-accent-500 to-primary-600 rounded-xl shadow-lg">
+                    <ExternalLink className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                      Freelance
+                    </p>
+                    <p className="text-gray-900 dark:text-gray-100 font-semibold">
+                      {t.contact.info.upwork}
                     </p>
                   </div>
                 </motion.a>

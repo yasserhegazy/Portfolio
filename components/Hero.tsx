@@ -102,7 +102,7 @@ export default function Hero() {
             >
               <span className="text-2xl md:text-3xl font-bold gradient-text">
                 <TypeWriter
-                  words={['Backend Engineer', 'System Designer', 'API Architect', 'Problem Solver']}
+                  words={t.hero.roles}
                 />
               </span>
             </motion.div>
@@ -156,7 +156,7 @@ export default function Hero() {
                 variants={ctaItemVariants}
                 whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(99, 102, 241, 0.4)' }}
                 whileTap={{ scale: 0.95 }}
-                href="/cv/yasser-hegazy-cv.pdf"
+                href="/cv/Yasser-Hegazy-CV.pdf"
                 download
                 className="group px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-full font-semibold transition-all flex items-center gap-2 shadow-xl hover:shadow-2xl"
               >
@@ -179,7 +179,7 @@ export default function Hero() {
                 variants={ctaItemVariants}
                 whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(37, 211, 102, 0.4)' }}
                 whileTap={{ scale: 0.95 }}
-                href="https://api.whatsapp.com/send/?phone=972567777368"
+                href="https://api.whatsapp.com/send/?phone=970567777368"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full font-semibold transition-all flex items-center gap-2 shadow-xl hover:shadow-2xl"

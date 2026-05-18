@@ -13,7 +13,7 @@ export default function FloatingActions() {
     {
       icon: Download,
       label: t.floating.downloadCV,
-      href: '/cv/yasser-hegazy-cv.pdf',
+      href: '/cv/Yasser-Hegazy-CV.pdf',
       download: true,
       className: 'bg-primary-600 hover:bg-primary-700 text-white',
     },
@@ -26,14 +26,14 @@ export default function FloatingActions() {
     {
       icon: Linkedin,
       label: t.floating.linkedin,
-      href: 'https://www.linkedin.com/in/yasser-hegazy/',
+      href: 'https://www.linkedin.com/in/yasser-hegazy-134794248/',
       target: '_blank',
       className: 'bg-blue-600 hover:bg-blue-700 text-white',
     },
     {
       icon: MessageCircle,
       label: t.floating.whatsapp,
-      href: 'https://api.whatsapp.com/send/?phone=972567777368',
+      href: 'https://api.whatsapp.com/send/?phone=970567777368',
       target: '_blank',
       className: 'bg-green-500 hover:bg-green-600 text-white',
     },

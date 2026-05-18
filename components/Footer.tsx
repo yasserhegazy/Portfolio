@@ -38,7 +38,7 @@ export default function Footer() {
                 yasseranahegazy@gmail.com
               </a>
               <a
-                href="tel:+972567777368"
+                href="tel:+970567777368"
                 className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
               >
                 <Phone className="w-4 h-4" />
@@ -56,7 +56,7 @@ export default function Footer() {
               <motion.a
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
-                href="https://github.com/YasserHegazy"
+                href="https://github.com/yasserhegazy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all shadow-sm hover:shadow-md"
@@ -67,7 +67,7 @@ export default function Footer() {
               <motion.a
                 whileHover={{ scale: 1.1, rotate: -5 }}
                 whileTap={{ scale: 0.95 }}
-                href="https://www.linkedin.com/in/yasser-hegazy/"
+                href="https://www.linkedin.com/in/yasser-hegazy-134794248/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-900/50 border border-blue-200 dark:border-blue-800/50 hover:bg-blue-100 dark:hover:bg-blue-800/50 transition-all shadow-sm hover:shadow-md"
