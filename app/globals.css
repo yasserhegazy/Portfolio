@@ -2,109 +2,229 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Architect Amber / Mono palette.
+ * --primary-* = amber (brand/signal), --accent-* = sky (links/secondary).
+ * Semantic surface tokens are theme-aware so components stop hardcoding gray-*.
+ * NOTE: these live OUTSIDE @layer base on purpose — the `.dark` class is added
+ * at runtime by ThemeContext and never appears as a literal in JSX, so inside
+ * @layer base Tailwind's purge would strip the `.dark` rule.
+ */
+:root {
+  /* amber primary ramp */
+  --primary-50: #fffbeb;
+  --primary-100: #fef3c7;
+  --primary-200: #fde68a;
+  --primary-300: #fcd34d;
+  --primary-400: #fbbf24;
+  --primary-500: #f59e0b;
+  --primary-600: #d97706;
+  --primary-700: #b45309;
+  --primary-800: #92400e;
+  --primary-900: #78350f;
+  --primary-950: #451a03;
+  /* sky accent ramp (links / secondary signal) */
+  --accent-50: #f0f9ff;
+  --accent-100: #e0f2fe;
+  --accent-200: #bae6fd;
+  --accent-300: #7dd3fc;
+  --accent-400: #38bdf8;
+  --accent-500: #0ea5e9;
+  --accent-600: #0284c7;
+  --accent-700: #0369a1;
+  --accent-800: #075985;
+  --accent-900: #0c4a6e;
+
+  /* Light theme semantic surfaces (warm stone) */
+  --background: #fafaf9;
+  --surface: #ffffff;
+  --surface-elevated: #f5f5f4;
+  --border: #e7e5e4;
+  --border-strong: #d6d3d1;
+  --foreground: #1c1917;
+  --text-muted: #57534e;
+  --text-faint: #78716c;
+  --link: #0284c7;
+  --signal-ok: #059669;
+  --signal-warn: #d97706;
+  --grid-line: rgba(120, 113, 108, 0.08);
+}
+
+.dark {
+  /* Dark theme semantic surfaces (warm near-black) */
+  --background: #0c0a09;
+  --surface: #16130f;
+  --surface-elevated: #1c1917;
+  --border: #292524;
+  --border-strong: #3b3631;
+  --foreground: #fafaf9;
+  --text-muted: #a8a29e;
+  --text-faint: #78716c;
+  --link: #38bdf8;
+  --signal-ok: #34d399;
+  --signal-warn: #fbbf24;
+  --grid-line: rgba(245, 158, 11, 0.06);
+}
+
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-  }
-
-  /* Primary & Accent Colors */
-  :root {
-    --primary-50: #eff6ff;
-    --primary-100: #dbeafe;
-    --primary-200: #bfdbfe;
-    --primary-300: #93c5fd;
-    --primary-400: #60a5fa;
-    --primary-500: #3b82f6;
-    --primary-600: #2563eb;
-    --primary-700: #1d4ed8;
-    --primary-800: #1e40af;
-    --primary-900: #1e3a8a;
-    --primary-950: #172554;
-    --accent-50: #faf5ff;
-    --accent-100: #f3e8ff;
-    --accent-200: #e9d5ff;
-    --accent-300: #d8b4fe;
-    --accent-400: #c084fc;
-    --accent-500: #a855f7;
-    --accent-600: #9333ea;
-    --accent-700: #7e22ce;
-    --accent-800: #6b21a8;
-    --accent-900: #581c87;
+  * {
+    border-color: var(--border);
   }
 
   body {
-    @apply bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+    -webkit-font-smoothing: antialiased;
   }
 
   html {
     scroll-behavior: smooth;
   }
 
-  /* RTL Support */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
   [dir="rtl"] {
     direction: rtl;
   }
-
   [dir="ltr"] {
     direction: ltr;
+  }
+
+  /* Always-visible keyboard focus */
+  :focus-visible {
+    outline: 2px solid var(--primary-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--primary-500);
+    color: #0c0a09;
+  }
+}
+
+@layer components {
+  /* "Module" panel — bordered surface replacing the old glass-card */
+  .panel {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+  }
+
+  .panel-elevated {
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+  }
+
+  /* Mono kicker label used in section headers and chips */
+  .mono-label {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+  }
+
+  .tech-chip {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--border);
+    background-color: var(--surface-elevated);
+    color: var(--text-muted);
+    white-space: nowrap;
   }
 }
 
 @layer utilities {
-  /* Glassmorphism effect */
-  .glass {
-    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border border-gray-200/50 dark:border-gray-700/50;
-  }
-
-  .glass-card {
-    @apply glass rounded-2xl shadow-xl;
-  }
-
-  /* Gradient text */
   .gradient-text {
-    @apply bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent;
+    background-image: linear-gradient(110deg, var(--primary-400), var(--primary-600));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  /* Custom scrollbar */
+  .text-muted {
+    color: var(--text-muted);
+  }
+  .text-faint {
+    color: var(--text-faint);
+  }
+  .text-link {
+    color: var(--link);
+  }
+  .bg-surface {
+    background-color: var(--surface);
+  }
+  .bg-surface-elevated {
+    background-color: var(--surface-elevated);
+  }
+  .border-token {
+    border-color: var(--border);
+  }
+  .border-strong {
+    border-color: var(--border-strong);
+  }
+
   .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
   }
-
   .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-gray-900;
+    background-color: var(--background);
   }
-
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-primary-500 rounded-full;
+    background-color: var(--border-strong);
+    border-radius: 9999px;
   }
-
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-600;
+    background-color: var(--primary-500);
   }
 
-  /* Section padding */
   .section-padding {
-    @apply py-16 md:py-24 lg:py-32;
+    @apply py-16 md:py-24 lg:py-28;
   }
 
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Subtle blueprint grid background for sections */
+  .grid-bg {
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  /* Animated request pulse used by static system-graph fallback */
+  .animate-pulse-dot {
+    animation: pulse-dot 2.4s ease-in-out infinite;
   }
 }
 
-/* Signature Font */
-.font-signature {
-  font-family: "Brush Script MT", "Segoe Script", cursive;
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
-/* Marquee Animation */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -119,15 +239,12 @@
   display: flex;
   width: max-content;
 }
-
 .marquee-row.scroll-right {
   animation: marquee var(--marquee-duration, 30s) linear infinite;
 }
-
 .marquee-row.scroll-left {
   animation: marquee-reverse var(--marquee-duration, 30s) linear infinite;
 }
-
 .marquee-container:hover .marquee-row {
   animation-play-state: paused;
 }
