@@ -5,15 +5,16 @@ export const en = {
     skills: 'Skills',
     experience: 'Experience',
     projects: 'Projects',
+    aiWorkflow: 'AI Workflow',
     education: 'Education',
     github: 'GitHub',
     contact: 'Contact',
   },
   hero: {
     name: 'Yasser Hegazy',
-    title: 'Software Engineer | Full-Stack Engineer',
-    roles: ['Software Engineer', 'Full-Stack Engineer', 'SaaS Platform Builder', 'AI Integration Engineer', 'API & Dashboard Developer'],
-    tagline: 'I build SaaS platforms, APIs, dashboards, and AI-integrated web systems that move from idea to working product.',
+    title: 'Backend-focused Full-Stack Engineer',
+    roles: ['Backend Engineer', 'Full-Stack Engineer', 'API & Systems Designer', 'AI Integration Engineer', 'SaaS Platform Builder'],
+    tagline: 'I design and ship backend systems, APIs, and AI-integrated platforms — from data model and service layer to the dashboard on top.',
     philosophy: 'Strong systems feel simple to use because the complexity is handled with care.',
     downloadCV: 'Download CV',
     contactMe: 'Contact Me',
@@ -21,6 +22,20 @@ export const en = {
     availableStatus: 'Available for Freelance Work',
     openToRemote: 'Open to Remote',
     hireMe: 'Start a Project',
+    metrics: [
+      { value: '5,000+', label: 'API req / day' },
+      { value: '1,500+', label: 'daily active users' },
+      { value: '2+ yrs', label: 'shipping systems' },
+      { value: '92.54', label: 'GPA · ranked 2nd' },
+    ],
+    terminal: {
+      prompt: 'yasser@portfolio:~$',
+      commands: [
+        { cmd: 'whoami', out: 'Backend-focused Full-Stack Engineer · Palestine' },
+        { cmd: 'cat focus.txt', out: 'APIs · system architecture · databases · reliability · AI integration' },
+        { cmd: 'ls stack/', out: 'laravel  fastapi  postgresql  redis  next.js  langgraph' },
+      ],
+    },
   },
   about: {
     title: 'About Me',
@@ -267,6 +282,28 @@ export const en = {
       { title: 'Frontend Development', issuer: 'Udemy', date: 'Apr 2023' },
     ],
   },
+  aiWorkflow: {
+    title: 'AI-Assisted Engineering',
+    subtitle: 'How AI shows up in the systems I build and the way I build them',
+    items: [
+      {
+        title: 'RAG Pipelines',
+        description: 'Context-aware retrieval with ChromaDB and embeddings, grounding LLM replies in real business knowledge instead of guesswork.',
+      },
+      {
+        title: 'Multi-Agent Orchestration',
+        description: 'LangGraph and LangChain workflows that coordinate specialized agents for structured, multi-step tasks.',
+      },
+      {
+        title: 'AI in the Loop',
+        description: 'Real-time AI conversations wired into production backends — Meta API messaging, WebSockets, and Redis pub-sub.',
+      },
+      {
+        title: 'Quality & Testing',
+        description: 'AI-assisted delivery backed by pytest, Vitest, type checks, linting, and pre-commit gates so speed never costs reliability.',
+      },
+    ],
+  },
   github: {
     title: 'GitHub Statistics',
     subtitle: 'Code contributions and project activity',
@@ -298,7 +335,7 @@ export const en = {
     rights: 'All rights reserved.',
     builtWith: 'Built with Next.js, TypeScript, and Tailwind CSS',
     social: 'Social',
-    role: 'Software Engineer | Full-Stack Engineer',
+    role: 'Backend-focused Full-Stack Engineer',
   },
   floating: {
     downloadCV: 'Download CV',

@@ -7,15 +7,16 @@ export const ar: TranslationType = {
     skills: 'المهارات',
     experience: 'الخبرة',
     projects: 'المشاريع',
+    aiWorkflow: 'الذكاء الاصطناعي',
     education: 'التعليم',
     github: 'GitHub',
     contact: 'تواصل',
   },
   hero: {
     name: 'ياسر حجازي',
-    title: 'مهندس برمجيات | مهندس Full-Stack',
-    roles: ['مهندس برمجيات', 'مهندس Full-Stack', 'مطور منصات SaaS', 'مهندس تكامل ذكاء اصطناعي', 'مطور APIs ولوحات تحكم'],
-    tagline: 'أبني منصات SaaS وواجهات APIs ولوحات تحكم وأنظمة ويب مدمجة بالذكاء الاصطناعي من الفكرة إلى المنتج العملي.',
+    title: 'مهندس Full-Stack بتركيز على الـ Backend',
+    roles: ['مهندس Backend', 'مهندس Full-Stack', 'مصمم APIs وأنظمة', 'مهندس تكامل ذكاء اصطناعي', 'مطور منصات SaaS'],
+    tagline: 'أصمّم وأبني الأنظمة الخلفية وواجهات APIs والمنصات المدمجة بالذكاء الاصطناعي — من نموذج البيانات وطبقة الخدمات إلى لوحة التحكم فوقها.',
     philosophy: 'تبدو الأنظمة القوية بسيطة للمستخدم لأن التعقيد عولج بعناية.',
     downloadCV: 'تحميل السيرة الذاتية',
     contactMe: 'تواصل معي',
@@ -23,6 +24,20 @@ export const ar: TranslationType = {
     availableStatus: 'متاح للعمل الحر',
     openToRemote: 'عمل عن بُعد',
     hireMe: 'ابدأ مشروعاً',
+    metrics: [
+      { value: '5,000+', label: 'طلب API / يوم' },
+      { value: '1,500+', label: 'مستخدم نشط يومياً' },
+      { value: '+2 سنة', label: 'في بناء الأنظمة' },
+      { value: '92.54', label: 'المعدل · الثاني على القسم' },
+    ],
+    terminal: {
+      prompt: 'yasser@portfolio:~$',
+      commands: [
+        { cmd: 'whoami', out: 'مهندس Full-Stack بتركيز على الـ Backend · فلسطين' },
+        { cmd: 'cat focus.txt', out: 'APIs · معمارية الأنظمة · قواعد البيانات · الاعتمادية · تكامل الذكاء الاصطناعي' },
+        { cmd: 'ls stack/', out: 'laravel  fastapi  postgresql  redis  next.js  langgraph' },
+      ],
+    },
   },
   about: {
     title: 'عني',
@@ -269,6 +284,28 @@ export const ar: TranslationType = {
       { title: 'تطوير الواجهات الأمامية', issuer: 'Udemy', date: 'أبريل 2023' },
     ],
   },
+  aiWorkflow: {
+    title: 'الهندسة المدعومة بالذكاء الاصطناعي',
+    subtitle: 'كيف يظهر الذكاء الاصطناعي في الأنظمة التي أبنيها وفي طريقة بنائها',
+    items: [
+      {
+        title: 'تدفقات RAG',
+        description: 'استرجاع سياقي باستخدام ChromaDB وembeddings لتأسيس ردود النماذج اللغوية على معرفة أعمال حقيقية بدل التخمين.',
+      },
+      {
+        title: 'تنسيق متعدد الوكلاء',
+        description: 'تدفقات LangGraph وLangChain تنسّق وكلاء متخصصين لمهام منظمة متعددة الخطوات.',
+      },
+      {
+        title: 'الذكاء الاصطناعي ضمن الحلقة',
+        description: 'محادثات ذكاء اصطناعي لحظية موصولة بأنظمة خلفية إنتاجية — مراسلة Meta API وWebSockets وRedis pub-sub.',
+      },
+      {
+        title: 'الجودة والاختبار',
+        description: 'تسليم مدعوم بالذكاء الاصطناعي مسنود بـ pytest وVitest وفحوص الأنواع والـ linting وبوابات pre-commit حتى لا تكلّف السرعة الاعتمادية.',
+      },
+    ],
+  },
   github: {
     title: 'إحصائيات GitHub',
     subtitle: 'المساهمات البرمجية ونشاط المشاريع',
@@ -300,7 +337,7 @@ export const ar: TranslationType = {
     rights: 'جميع الحقوق محفوظة.',
     builtWith: 'مبني بـ Next.js و TypeScript و Tailwind CSS',
     social: 'التواصل الاجتماعي',
-    role: 'مهندس برمجيات | مهندس Full-Stack',
+    role: 'مهندس Full-Stack بتركيز على الـ Backend',
   },
   floating: {
     downloadCV: 'تحميل السيرة الذاتية',
