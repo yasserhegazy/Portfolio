@@ -24,7 +24,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'contact'];
+    const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'ai-workflow', 'education', 'github', 'contact'];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -45,13 +45,14 @@ export default function Navbar() {
   }, []);
 
   const navItems = [
-    { name: t.nav.home, href: '#home' },
-    { name: t.nav.about, href: '#about' },
-    { name: t.nav.skills, href: '#skills' },
-    { name: t.nav.experience, href: '#experience' },
-    { name: t.nav.projects, href: '#projects' },
-    { name: t.nav.education, href: '#education' },
-    { name: t.nav.contact, href: '#contact' },
+    { name: t.nav.home, href: '#home', i: '00' },
+    { name: t.nav.about, href: '#about', i: '01' },
+    { name: t.nav.skills, href: '#skills', i: '02' },
+    { name: t.nav.experience, href: '#experience', i: '03' },
+    { name: t.nav.projects, href: '#projects', i: '04' },
+    { name: t.nav.aiWorkflow, href: '#ai-workflow', i: '05' },
+    { name: t.nav.education, href: '#education', i: '06' },
+    { name: t.nav.contact, href: '#contact', i: '08' },
   ];
 
   const scrollToSection = (href: string) => {
@@ -68,7 +69,7 @@ export default function Navbar() {
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'glass-card shadow-lg py-3'
+          ? 'bg-[var(--surface)]/85 backdrop-blur-md border-b border-[var(--border)] py-3'
           : 'bg-transparent py-5'
       }`}
     >
@@ -81,15 +82,17 @@ export default function Navbar() {
               e.preventDefault();
               scrollToSection('#home');
             }}
-            className="text-3xl font-signature gradient-text"
-            whileHover={{ scale: 1.05, rotate: -2 }}
-            whileTap={{ scale: 0.95 }}
+            className="font-mono text-lg font-bold"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
           >
-            Yasser
+            <span className="text-primary-500">~/</span>
+            <span className="text-foreground">yasser</span>
+            {!scrolled && <span className="text-primary-500 animate-[blink_1s_step-end_infinite]">_</span>}
           </motion.a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6">
             {navItems.map((item) => {
               const sectionId = item.href.replace('#', '');
               const isActive = activeSection === sectionId;
@@ -101,15 +104,16 @@ export default function Navbar() {
                     e.preventDefault();
                     scrollToSection(item.href);
                   }}
-                  className={`relative text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium pb-1 ${
-                    isActive ? 'text-primary-600 dark:text-primary-400' : ''
+                  className={`relative font-mono text-sm transition-colors pb-1 ${
+                    isActive ? 'text-primary-500' : 'text-muted hover:text-foreground'
                   }`}
                 >
+                  <span className="text-primary-500/50 me-1">{item.i}</span>
                   {item.name}
                   {isActive && (
                     <motion.div
                       layoutId="activeNavIndicator"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-full"
+                      className="absolute -bottom-0.5 left-0 right-0 h-px bg-primary-500"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -125,24 +129,25 @@ export default function Navbar() {
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
-              className="p-2.5 rounded-xl bg-primary-100 dark:bg-gray-800 border border-primary-200 dark:border-gray-700 hover:bg-primary-200 dark:hover:bg-gray-700 transition-all shadow-sm hover:shadow-md"
+              className="px-2.5 py-2 rounded-lg panel hover:bg-[var(--surface-elevated)] transition-colors inline-flex items-center gap-1.5"
               aria-label="Toggle language"
             >
-              <Globe className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+              <Globe className="w-4 h-4 text-primary-500" />
+              <span className="font-mono text-xs text-muted uppercase">{language === 'en' ? 'ar' : 'en'}</span>
             </motion.button>
 
             {/* Theme Toggle */}
             <motion.button
-              whileHover={{ scale: 1.1, rotate: -5 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={toggleTheme}
-              className="p-2.5 rounded-xl bg-accent-100 dark:bg-gray-800 border border-accent-200 dark:border-gray-700 hover:bg-accent-200 dark:hover:bg-gray-700 transition-all shadow-sm hover:shadow-md"
+              className="p-2 rounded-lg panel hover:bg-[var(--surface-elevated)] transition-colors"
               aria-label="Toggle theme"
             >
               {theme === 'light' ? (
-                <Moon className="w-5 h-5 text-accent-600 dark:text-accent-400" />
+                <Moon className="w-4 h-4 text-primary-500" />
               ) : (
-                <Sun className="w-5 h-5 text-accent-600 dark:text-accent-400" />
+                <Sun className="w-4 h-4 text-primary-500" />
               )}
             </motion.button>
 
@@ -151,7 +156,7 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-lg glass hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
+              className="lg:hidden p-2 rounded-lg panel hover:bg-[var(--surface-elevated)] transition-colors"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -166,9 +171,9 @@ export default function Navbar() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden mt-4 glass-card rounded-2xl overflow-hidden"
+              className="lg:hidden mt-4 panel overflow-hidden"
             >
-              <div className="flex flex-col p-4 gap-2">
+              <div className="flex flex-col p-3 gap-1">
                 {navItems.map((item) => (
                   <a
                     key={item.href}
@@ -177,8 +182,9 @@ export default function Navbar() {
                       e.preventDefault();
                       scrollToSection(item.href);
                     }}
-                    className="px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors font-medium"
+                    className="px-4 py-2.5 rounded-lg font-mono text-sm text-muted hover:text-foreground hover:bg-[var(--surface-elevated)] transition-colors"
                   >
+                    <span className="text-primary-500/50 me-2">{item.i}</span>
                     {item.name}
                   </a>
                 ))}

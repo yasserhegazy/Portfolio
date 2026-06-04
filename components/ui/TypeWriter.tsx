@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useReducedMotion } from 'framer-motion';
 
 interface TypeWriterProps {
   words: string[];
@@ -12,18 +13,18 @@ interface TypeWriterProps {
 
 export default function TypeWriter({
   words,
-  typingSpeed = 80,
-  deletingSpeed = 50,
-  pauseTime = 2000,
+  typingSpeed = 70,
+  deletingSpeed = 40,
+  pauseTime = 1800,
   className,
 }: TypeWriterProps) {
+  const reduce = useReducedMotion();
   const [text, setText] = useState('');
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const tick = useCallback(() => {
     const currentWord = words[wordIndex];
-
     if (isDeleting) {
       setText(currentWord.substring(0, text.length - 1));
     } else {
@@ -32,6 +33,7 @@ export default function TypeWriter({
   }, [isDeleting, text, wordIndex, words]);
 
   useEffect(() => {
+    if (reduce) return;
     const currentWord = words[wordIndex];
     let delay = isDeleting ? deletingSpeed : typingSpeed;
 
@@ -40,27 +42,23 @@ export default function TypeWriter({
       const timeout = setTimeout(() => setIsDeleting(true), delay);
       return () => clearTimeout(timeout);
     }
-
     if (isDeleting && text === '') {
       setIsDeleting(false);
       setWordIndex((prev) => (prev + 1) % words.length);
       return;
     }
-
     const timeout = setTimeout(tick, delay);
     return () => clearTimeout(timeout);
-  }, [text, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, pauseTime, tick]);
+  }, [text, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, pauseTime, tick, reduce]);
+
+  if (reduce) {
+    return <span className={className}>{words[0]}</span>;
+  }
 
   return (
     <span className={className}>
       {text}
       <span className="inline-block w-[2px] h-[1em] bg-current ml-0.5 align-middle animate-[blink_1s_step-end_infinite]" />
-      <style jsx>{`
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-      `}</style>
     </span>
   );
 }

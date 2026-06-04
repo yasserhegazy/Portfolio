@@ -15,13 +15,13 @@ export default function FloatingActions() {
       label: t.floating.downloadCV,
       href: '/cv/Yasser-Hegazy-CV.pdf',
       download: true,
-      className: 'bg-primary-600 hover:bg-primary-700 text-white',
+      className: 'bg-primary-500 hover:bg-primary-600 text-[#0c0a09]',
     },
     {
       icon: Mail,
       label: t.floating.contact,
       href: '#contact',
-      className: 'bg-accent-600 hover:bg-accent-700 text-white',
+      className: 'bg-accent-500 hover:bg-accent-600 text-white',
     },
     {
       icon: Linkedin,
@@ -50,8 +50,8 @@ export default function FloatingActions() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: language === 'ar' ? -100 : 100 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ delay: 1 }}
       className={`fixed ${language === 'ar' ? 'left-6' : 'right-6'} bottom-6 z-40 flex flex-col gap-3`}
     >
@@ -67,8 +67,8 @@ export default function FloatingActions() {
               scrollToContact(action.href);
             }
           }}
-          initial={{ opacity: 0, x: language === 'ar' ? -50 : 50 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1 + index * 0.1 }}
           whileHover={{ scale: 1.15, rotate: 5 }}
           whileTap={{ scale: 0.9 }}
@@ -77,8 +77,8 @@ export default function FloatingActions() {
         >
           <action.icon className="w-5 h-5" />
           
-          {/* Tooltip */}
-          <span className={`absolute ${language === 'ar' ? 'right-full mr-3' : 'left-full ml-3'} top-1/2 -translate-y-1/2 px-4 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm font-semibold rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg`}>
+          {/* Tooltip — opens toward screen center so it never overflows the edge */}
+          <span className={`absolute ${language === 'ar' ? 'left-full ml-3' : 'right-full mr-3'} top-1/2 -translate-y-1/2 px-3 py-1.5 panel font-mono text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none`}>
             {action.label}
           </span>
         </motion.a>

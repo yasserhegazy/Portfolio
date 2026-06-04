@@ -27,11 +27,11 @@ export default function ScrollProgress() {
 
   return (
     <div
-      className="fixed top-0 left-0 z-50 h-[3px] bg-gradient-to-r from-primary-500 to-accent-500"
+      className="fixed top-0 left-0 z-[60] h-[2px] bg-gradient-to-r from-primary-500 to-accent-400"
       style={{
         width: `${scrollPercent}%`,
         transition: 'width 0.1s ease-out',
-        boxShadow: scrollPercent > 0 ? '0 0 8px rgba(var(--color-primary-500, 99 102 241) / 0.4)' : 'none',
+        boxShadow: scrollPercent > 0 ? '0 0 10px var(--primary-500)' : 'none',
       }}
     />
   );

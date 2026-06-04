@@ -2,283 +2,167 @@
 
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/translations';
-import { motion } from 'framer-motion';
-import { Download, Mail, Briefcase, MapPin } from 'lucide-react';
-import Image from 'next/image';
-import ParticleBackground from '@/components/ui/ParticleBackground';
+import { motion, useReducedMotion } from 'framer-motion';
+import { Download, Mail, Terminal } from 'lucide-react';
 import TypeWriter from '@/components/ui/TypeWriter';
-
-const nameVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.04 },
-  },
-};
-
-const letterVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { type: 'spring', damping: 12, stiffness: 200 },
-  },
-};
-
-const ctaContainerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const ctaItemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
+import TerminalWindow from '@/components/ui/TerminalWindow';
+import SystemGraphMount from '@/components/three/SystemGraphMount';
 
 export default function Hero() {
   const { language } = useLanguage();
   const t = translations[language];
+  const reduce = useReducedMotion();
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const isArabic = language === 'ar';
-  const nameSegments = isArabic ? t.hero.name.split(' ') : t.hero.name.split('');
+  const reveal = (delay: number) =>
+    reduce
+      ? {}
+      : {
+          initial: { opacity: 0, y: 20 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.5, delay },
+        };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Animated Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-accent-50 dark:from-gray-950 dark:via-gray-900 dark:to-primary-950"></div>
-        <ParticleBackground className="absolute inset-0" />
-      </div>
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16"
+    >
+      {/* blueprint grid + glow */}
+      <div className="absolute inset-0 -z-10 grid-bg opacity-70" aria-hidden />
+      <div
+        className="absolute -z-10 top-1/4 -left-32 w-[36rem] h-[36rem] rounded-full blur-3xl opacity-20"
+        style={{ background: 'radial-gradient(circle, var(--primary-500) 0%, transparent 65%)' }}
+        aria-hidden
+      />
 
-      <div className="container-custom">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center lg:text-left"
-          >
+      <div className="container-custom w-full">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+          {/* Left — identity */}
+          <div>
+            <motion.div {...reveal(0)} className="flex items-center gap-3 mb-5">
+              <span className="font-mono text-sm text-primary-500">00</span>
+              <span className="h-px w-8 bg-[var(--border-strong)]" aria-hidden />
+              <span className="font-mono text-sm text-muted">
+                <span className="text-primary-500/70">$</span> ./boot
+              </span>
+            </motion.div>
+
+            {/* status */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="inline-block mb-4 px-4 py-2 glass-card rounded-full text-sm font-medium text-primary-600 dark:text-primary-400"
+              {...reveal(0.05)}
+              className="inline-flex items-center gap-3 mb-6 font-mono text-xs"
             >
-              👋 {t.hero.title}
+              <span className="inline-flex items-center gap-2 text-[var(--signal-ok)]">
+                <span className="relative flex h-2 w-2">
+                  {!reduce && (
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--signal-ok)] opacity-70 animate-ping" />
+                  )}
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--signal-ok)]" />
+                </span>
+                {t.hero.availableStatus}
+              </span>
+              <span className="text-faint">·</span>
+              <span className="text-muted">{t.hero.openToRemote}</span>
             </motion.div>
 
             <motion.h1
-              variants={nameVariants}
-              initial="hidden"
-              animate="visible"
-              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
+              {...reveal(0.1)}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4"
             >
-              {nameSegments.map((segment, i) => (
-                <motion.span
-                  key={i}
-                  variants={letterVariants}
-                  className="gradient-text inline-block"
-                  style={isArabic ? (i < nameSegments.length - 1 ? { marginInlineEnd: '0.3em' } : undefined) : (segment === ' ' ? { width: '0.3em' } : undefined)}
-                >
-                  {isArabic ? segment : (segment === ' ' ? '\u00A0' : segment)}
-                </motion.span>
-              ))}
+              {t.hero.name}
             </motion.h1>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="mb-2"
-            >
-              <span className="text-2xl md:text-3xl font-bold gradient-text">
-                <TypeWriter
-                  words={t.hero.roles}
-                />
+            <motion.div {...reveal(0.15)} className="mb-5">
+              <span className="font-mono text-lg md:text-2xl font-semibold">
+                <span className="text-primary-500/70">&gt; </span>
+                <TypeWriter words={t.hero.roles} className="gradient-text" />
               </span>
             </motion.div>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.45 }}
-              className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-4 font-medium"
+              {...reveal(0.2)}
+              className="text-base md:text-lg text-muted max-w-xl leading-relaxed mb-8"
             >
               {t.hero.tagline}
             </motion.p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="text-lg text-gray-600 dark:text-gray-400 mb-8 italic"
-            >
-              &quot;{t.hero.philosophy}&quot;
-            </motion.p>
-
-            {/* Availability Badge */}
+            {/* metrics */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55 }}
-              className="flex flex-wrap items-center gap-3 justify-center lg:justify-start mb-8"
+              {...reveal(0.25)}
+              className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 max-w-xl"
             >
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold border border-green-200 dark:border-green-800/50">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
-                </span>
-                {t.hero.availableStatus}
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-sm font-semibold border border-blue-200 dark:border-blue-800/50">
-                <MapPin className="w-3.5 h-3.5" />
-                {t.hero.openToRemote}
-              </span>
+              {t.hero.metrics.map((m) => (
+                <div key={m.label} className="panel px-3 py-3">
+                  <div className="font-mono text-lg md:text-xl font-bold text-primary-500 tabular-nums">
+                    {m.value}
+                  </div>
+                  <div className="mono-label leading-tight">{m.label}</div>
+                </div>
+              ))}
             </motion.div>
 
             {/* CTAs */}
-            <motion.div
-              variants={ctaContainerVariants}
-              initial="hidden"
-              animate="visible"
-              className="flex flex-wrap gap-4 justify-center lg:justify-start"
-            >
-              <motion.a
-                variants={ctaItemVariants}
-                whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(99, 102, 241, 0.4)' }}
-                whileTap={{ scale: 0.95 }}
+            <motion.div {...reveal(0.3)} className="flex flex-wrap gap-3">
+              <a
                 href="/cv/Yasser-Hegazy-CV.pdf"
                 download
-                className="group px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-full font-semibold transition-all flex items-center gap-2 shadow-xl hover:shadow-2xl"
+                className="group inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary-500 hover:bg-primary-600 text-[#0c0a09] font-semibold transition-colors"
               >
-                <Download className="w-5 h-5 group-hover:animate-bounce" />
+                <Download className="w-4 h-4" />
                 {t.hero.downloadCV}
-              </motion.a>
-
-              <motion.button
-                variants={ctaItemVariants}
-                whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(156, 163, 175, 0.3)' }}
-                whileTap={{ scale: 0.95 }}
+              </a>
+              <button
+                onClick={() => scrollToSection('#projects')}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg panel hover:bg-[var(--surface-elevated)] font-semibold transition-colors"
+              >
+                <Terminal className="w-4 h-4 text-primary-500" />
+                {t.hero.viewProjects}
+              </button>
+              <button
                 onClick={() => scrollToSection('#contact')}
-                className="group px-8 py-4 glass-card hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full font-semibold transition-all flex items-center gap-2 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-link hover:underline transition-colors"
               >
-                <Mail className="w-5 h-5" />
+                <Mail className="w-4 h-4" />
                 {t.hero.contactMe}
-              </motion.button>
-
-              <motion.a
-                variants={ctaItemVariants}
-                whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(37, 211, 102, 0.4)' }}
-                whileTap={{ scale: 0.95 }}
-                href="https://api.whatsapp.com/send/?phone=970567777368"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full font-semibold transition-all flex items-center gap-2 shadow-xl hover:shadow-2xl"
-              >
-                <Briefcase className="w-5 h-5" />
-                {t.hero.hireMe}
-              </motion.a>
-
+              </button>
             </motion.div>
-          </motion.div>
+          </div>
 
-          {/* Image */}
+          {/* Right — system graph + terminal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 1, type: 'spring', damping: 12, stiffness: 80 }}
-            className="relative flex items-center justify-center"
+            {...(reduce
+              ? {}
+              : {
+                  initial: { opacity: 0, scale: 0.96 },
+                  animate: { opacity: 1, scale: 1 },
+                  transition: { duration: 0.7, delay: 0.2 },
+                })}
+            className="flex flex-col gap-6"
           >
-            <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
-              {/* Pulsing glow */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-primary-400 to-accent-400 rounded-full blur-3xl"
-                animate={{
-                  opacity: [0.2, 0.35, 0.2],
-                  scale: [0.9, 1.1, 0.9],
-                }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              />
+            <SystemGraphMount />
 
-              {/* Orbiting dots */}
-              {[0, 1, 2].map((i) => (
-                <motion.div
-                  key={i}
-                  className="absolute inset-0"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 10 + i * 4, repeat: Infinity, ease: 'linear' }}
-                >
-                  <div
-                    className={`absolute w-3 h-3 rounded-full shadow-lg ${
-                      i === 0 ? 'bg-primary-500 top-0 left-1/2 -translate-x-1/2' :
-                      i === 1 ? 'bg-accent-500 bottom-4 right-0' :
-                      'bg-pink-500 bottom-4 left-0'
-                    }`}
-                  />
-                </motion.div>
-              ))}
-
-              {/* Rotating gradient border ring */}
-              <motion.div
-                className="absolute -inset-2 rounded-full"
-                style={{
-                  background: 'conic-gradient(from 0deg, #6366f1, #ec4899, #8b5cf6, #6366f1)',
-                  padding: '3px',
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-              >
-                <div className="w-full h-full rounded-full bg-white dark:bg-gray-900" />
-              </motion.div>
-
-              {/* Image with float */}
-              <motion.div
-                className="relative rounded-full overflow-hidden shadow-2xl"
-                animate={{ y: [0, -10, 0], rotate: [0, 1, 0, -1, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <Image
-                  src="/images/profile.jpg"
-                  alt="Yasser Hegazy"
-                  width={500}
-                  height={500}
-                  className="w-full h-full object-cover"
-                  priority
-                />
-              </motion.div>
-            </div>
+            <TerminalWindow title={t.hero.terminal.prompt} className="hidden sm:block">
+              <div className="space-y-1.5">
+                {t.hero.terminal.commands.map((c) => (
+                  <div key={c.cmd}>
+                    <div className="flex gap-2">
+                      <span className="text-primary-500/80 shrink-0">
+                        {t.hero.terminal.prompt}
+                      </span>
+                      <span className="text-foreground">{c.cmd}</span>
+                    </div>
+                    <div className="text-muted ps-1">{c.out}</div>
+                  </div>
+                ))}
+              </div>
+            </TerminalWindow>
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-7 h-11 rounded-full border-2 border-primary-400 dark:border-primary-500 flex items-start justify-center p-2 shadow-lg"
-        >
-          <motion.div
-            animate={{ height: ['20%', '80%', '20%'] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1 bg-primary-400 dark:bg-primary-500 rounded-full"
-          />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }
