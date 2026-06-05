@@ -16,6 +16,10 @@ import {
 
 const nodeById = (id: string) => NODES.find((n) => n.id === id) as GraphNode;
 const vecOf = (id: string) => new THREE.Vector3(...nodeById(id).position);
+const setSmartCursor = (label: string | null) => {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(new CustomEvent('smart-cursor-label', { detail: label }));
+};
 
 // Shared, render-free channel: trace controller stamps a node's id with the
 // elapsed time it was "hit"; nodes read it each frame and flare, no re-render.
@@ -50,6 +54,8 @@ function Node({
   const haloRef = useRef<THREE.Mesh>(null);
   const color = KIND_COLOR[node.kind];
   const meta = NODE_META[node.id];
+  const radius =
+    node.kind === 'core' ? 0.34 : node.kind === 'project' ? 0.25 : node.kind === 'domain' ? 0.22 : 0.2;
 
   useFrame((state) => {
     const m = meshRef.current;
@@ -60,7 +66,7 @@ function Node({
     const ping = since >= 0 && since < 0.7 ? 1 - since / 0.7 : 0;
 
     const base = 1 + Math.sin(t * 1.4 + node.position[0]) * 0.05;
-    const scaleTarget = selected ? 1.6 : hovered ? 1.32 : base + ping * 0.45;
+    const scaleTarget = selected ? 1.55 : hovered ? 1.28 : base + ping * 0.45;
     m.scale.lerp(new THREE.Vector3(scaleTarget, scaleTarget, scaleTarget), 0.18);
 
     const mat = m.material as THREE.MeshStandardMaterial;
@@ -87,7 +93,7 @@ function Node({
     <group position={node.position}>
       {/* additive glow halo */}
       <mesh ref={haloRef}>
-        <sphereGeometry args={[0.36, 18, 18]} />
+        <sphereGeometry args={[radius * 1.95, 18, 18]} />
         <meshBasicMaterial
           color={color}
           transparent
@@ -102,18 +108,21 @@ function Node({
         onPointerOver={(e) => {
           e.stopPropagation();
           onHover(node.id);
+          setSmartCursor('inspect');
           document.body.style.cursor = 'pointer';
         }}
         onPointerOut={() => {
           onHover(null);
+          setSmartCursor('orbit');
           document.body.style.cursor = 'auto';
         }}
         onClick={(e) => {
           e.stopPropagation();
+          setSmartCursor(selected ? 'inspect' : 'selected');
           onSelect(node.id);
         }}
       >
-        <icosahedronGeometry args={[0.2, 1]} />
+        <icosahedronGeometry args={[radius, node.kind === 'core' ? 2 : 1]} />
         <meshStandardMaterial
           color={color}
           emissive={color}
@@ -122,6 +131,19 @@ function Node({
           metalness={0.35}
         />
       </mesh>
+
+      {node.kind === 'core' && (
+        <>
+          <mesh rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[0.58, 0.008, 8, 96]} />
+            <meshBasicMaterial color={color} transparent opacity={0.55} />
+          </mesh>
+          <mesh rotation={[0.2, Math.PI / 2, 0.2]}>
+            <torusGeometry args={[0.76, 0.006, 8, 96]} />
+            <meshBasicMaterial color="#38bdf8" transparent opacity={0.24} />
+          </mesh>
+        </>
+      )}
 
       <Html
         center
@@ -178,6 +200,74 @@ function Node({
   );
 }
 
+function BackgroundParticles() {
+  const pointsRef = useRef<THREE.Points>(null);
+  const geometry = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    const positions = new Float32Array(150 * 3);
+
+    for (let i = 0; i < 150; i++) {
+      const radius = 4.2 + Math.random() * 4.8;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta) * 0.7;
+      positions[i * 3 + 2] = radius * Math.cos(phi);
+    }
+
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    return geo;
+  }, []);
+
+  useFrame((_, delta) => {
+    const p = pointsRef.current;
+    if (!p) return;
+    p.rotation.y += delta * 0.025;
+    p.rotation.x += delta * 0.008;
+  });
+
+  return (
+    <points ref={pointsRef} geometry={geometry}>
+      <pointsMaterial
+        color="#fbbf24"
+        size={0.018}
+        transparent
+        opacity={0.45}
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+      />
+    </points>
+  );
+}
+
+function OrbitRings() {
+  const ref = useRef<THREE.Group>(null);
+
+  useFrame((_, delta) => {
+    const g = ref.current;
+    if (!g) return;
+    g.rotation.y += delta * 0.045;
+    g.rotation.z -= delta * 0.018;
+  });
+
+  return (
+    <group ref={ref}>
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[3.35, 0.004, 8, 160]} />
+        <meshBasicMaterial color="#f59e0b" transparent opacity={0.18} />
+      </mesh>
+      <mesh rotation={[1.08, 0.18, 0.5]}>
+        <torusGeometry args={[4.45, 0.003, 8, 160]} />
+        <meshBasicMaterial color="#38bdf8" transparent opacity={0.11} />
+      </mesh>
+      <mesh rotation={[0.45, 1.2, 0.1]}>
+        <torusGeometry args={[2.45, 0.003, 8, 160]} />
+        <meshBasicMaterial color="#a78bfa" transparent opacity={0.12} />
+      </mesh>
+    </group>
+  );
+}
+
 function Edges({ activeHops }: { activeHops: string[] }) {
   const active = useMemo(() => {
     const s = new Set<string>();
@@ -196,10 +286,10 @@ function Edges({ activeHops }: { activeHops: string[] }) {
           <Line
             key={i}
             points={[nodeById(a).position, nodeById(b).position]}
-            color={on ? '#f59e0b' : '#44403c'}
+            color={on ? '#fbbf24' : '#57534e'}
             lineWidth={on ? 2 : 1}
             transparent
-            opacity={on ? 0.9 : 0.4}
+            opacity={on ? 0.95 : 0.28}
           />
         );
       })}
@@ -333,9 +423,11 @@ function Scene({ onTrace }: { onTrace: (info: TraceInfo) => void }) {
 
   return (
     <>
+      <fog attach="fog" args={['#0c0a09', 7.5, 14]} />
       <ambientLight intensity={0.5} />
       <pointLight position={[6, 6, 6]} intensity={40} color="#fbbf24" />
       <pointLight position={[-6, -3, -4]} intensity={25} color="#38bdf8" />
+      <BackgroundParticles />
 
       {/* click-away backdrop to deselect */}
       <mesh position={[0, 0, -4]} onClick={() => setSelected(null)}>
@@ -344,6 +436,7 @@ function Scene({ onTrace }: { onTrace: (info: TraceInfo) => void }) {
       </mesh>
 
       <group ref={groupRef}>
+        <OrbitRings />
         <Edges activeHops={route.hops} />
         <Trace
           activations={activations}
@@ -402,10 +495,12 @@ export default function SystemGraph({
 }) {
   return (
     <Canvas
-      camera={{ position: [0, 0.4, 9], fov: 45 }}
+      camera={{ position: [0, 0.25, 9.6], fov: 44 }}
       dpr={[1, 1.6]}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       style={{ width: '100%', height: '100%' }}
+      onPointerEnter={() => setSmartCursor('orbit')}
+      onPointerLeave={() => setSmartCursor(null)}
     >
       <Scene onTrace={onTrace} />
     </Canvas>

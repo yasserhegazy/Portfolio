@@ -9,37 +9,51 @@ import { useReducedMotion } from 'framer-motion';
 type N = { id: string; label: string; x: number; y: number; c: string };
 
 const NODES: N[] = [
-  { id: 'client', label: 'Client', x: 200, y: 30, c: '#fbbf24' },
-  { id: 'gateway', label: 'API Gateway', x: 200, y: 95, c: '#fbbf24' },
-  { id: 'auth', label: 'Auth·RBAC', x: 70, y: 160, c: '#f59e0b' },
-  { id: 'fastapi', label: 'FastAPI', x: 330, y: 160, c: '#f59e0b' },
-  { id: 'laravel', label: 'Laravel', x: 200, y: 175, c: '#f59e0b' },
-  { id: 'postgres', label: 'PostgreSQL', x: 70, y: 255, c: '#38bdf8' },
-  { id: 'redis', label: 'Redis', x: 200, y: 270, c: '#38bdf8' },
-  { id: 'queue', label: 'Queue', x: 330, y: 255, c: '#38bdf8' },
-  { id: 'ai', label: 'AI Agent', x: 330, y: 95, c: '#a78bfa' },
-  { id: 'rag', label: 'RAG·Vector', x: 360, y: 30, c: '#a78bfa' },
+  { id: 'yasser', label: 'Yasser', x: 215, y: 150, c: '#fef3c7' },
+  { id: 'api', label: 'API Systems', x: 92, y: 92, c: '#fbbf24' },
+  { id: 'saas', label: 'SaaS', x: 215, y: 46, c: '#fbbf24' },
+  { id: 'ai', label: 'AI Agents', x: 338, y: 92, c: '#a78bfa' },
+  { id: 'realtime', label: 'Realtime', x: 340, y: 214, c: '#fbbf24' },
+  { id: 'data', label: 'Data Layer', x: 88, y: 214, c: '#38bdf8' },
+  { id: 'dashboard', label: 'Dashboards', x: 215, y: 258, c: '#fbbf24' },
+  { id: 'ibra', label: 'IbraAgent', x: 390, y: 150, c: '#fb923c' },
+  { id: 'azzm', label: 'Azzm PM', x: 40, y: 150, c: '#fb923c' },
+  { id: 'bridge', label: 'BridgeAI', x: 305, y: 36, c: '#fb923c' },
+  { id: 'clinic', label: 'Clinic SaaS', x: 124, y: 270, c: '#fb923c' },
+  { id: 'fastapi', label: 'FastAPI', x: 285, y: 132, c: '#f59e0b' },
+  { id: 'laravel', label: 'Laravel', x: 145, y: 132, c: '#f59e0b' },
+  { id: 'rag', label: 'RAG·Vector', x: 382, y: 48, c: '#a78bfa' },
+  { id: 'postgres', label: 'PostgreSQL', x: 128, y: 214, c: '#38bdf8' },
+  { id: 'redis', label: 'Redis', x: 286, y: 224, c: '#38bdf8' },
 ];
 
 const EDGES: [string, string][] = [
-  ['client', 'gateway'],
-  ['gateway', 'auth'],
-  ['gateway', 'fastapi'],
-  ['gateway', 'laravel'],
-  ['fastapi', 'postgres'],
-  ['fastapi', 'redis'],
-  ['fastapi', 'ai'],
-  ['laravel', 'postgres'],
-  ['laravel', 'queue'],
-  ['auth', 'postgres'],
-  ['redis', 'queue'],
+  ['yasser', 'api'],
+  ['yasser', 'saas'],
+  ['yasser', 'ai'],
+  ['yasser', 'realtime'],
+  ['yasser', 'data'],
+  ['yasser', 'dashboard'],
+  ['yasser', 'ibra'],
+  ['yasser', 'azzm'],
+  ['yasser', 'bridge'],
+  ['yasser', 'clinic'],
+  ['api', 'laravel'],
+  ['api', 'fastapi'],
   ['ai', 'rag'],
+  ['ibra', 'fastapi'],
+  ['ibra', 'realtime'],
+  ['azzm', 'laravel'],
+  ['bridge', 'rag'],
+  ['clinic', 'dashboard'],
+  ['data', 'postgres'],
+  ['realtime', 'redis'],
 ];
 
 const byId = (id: string) => NODES.find((n) => n.id === id) as N;
 
-// Representative request path: Client → Gateway → FastAPI → PostgreSQL
-const ROUTE = ['client', 'gateway', 'fastapi', 'postgres'];
+// Representative request path: Yasser → IbraAgent → FastAPI → AI → RAG
+const ROUTE = ['yasser', 'ibra', 'fastapi', 'ai', 'rag'];
 const ROUTE_PATH = ROUTE.map((id, i) => {
   const n = byId(id);
   return `${i === 0 ? 'M' : 'L'}${n.x},${n.y}`;
@@ -53,7 +67,7 @@ export default function SystemGraphFallback() {
       viewBox="0 0 430 300"
       className="w-full h-full max-h-[420px]"
       role="img"
-      aria-label="System architecture diagram: client to API gateway to services, databases, and AI agents"
+      aria-label="Portfolio systems diagram centered on Yasser, connected to SaaS, API systems, AI agents, dashboards, realtime flows, data, and featured projects"
     >
       {EDGES.map(([a, b], i) => {
         const na = byId(a);
@@ -128,7 +142,7 @@ export default function SystemGraphFallback() {
         fontSize="9"
         fill="var(--text-faint)"
       >
-        {reduce ? 'system architecture map' : 'GET /api/tenants  →  live trace'}
+        {reduce ? 'portfolio systems map' : 'POST /projects/ibra-agent/message  ->  live trace'}
       </text>
     </svg>
   );

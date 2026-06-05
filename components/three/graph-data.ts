@@ -2,45 +2,66 @@ export type GraphNode = {
   id: string;
   label: string;
   position: [number, number, number];
-  kind: 'edge' | 'service' | 'data' | 'ai';
+  kind: 'core' | 'domain' | 'project' | 'service' | 'data' | 'ai';
 };
 
 export type GraphEdge = [string, string];
 
-// A small architecture map: client → gateway → services → data / ai.
+// A portfolio-native architecture map: Yasser at the center, with the systems,
+// project domains, and infrastructure that show up across real client work.
 export const NODES: GraphNode[] = [
-  { id: 'client', label: 'Client', position: [0, 3.0, 0], kind: 'edge' },
-  { id: 'gateway', label: 'API Gateway', position: [0, 1.4, 0.2], kind: 'edge' },
-  { id: 'auth', label: 'Auth · RBAC', position: [-2.2, 0.6, -0.6], kind: 'service' },
-  { id: 'fastapi', label: 'FastAPI', position: [1.9, 0.4, 0.8], kind: 'service' },
-  { id: 'laravel', label: 'Laravel', position: [-1.4, -0.4, 1.4], kind: 'service' },
-  { id: 'postgres', label: 'PostgreSQL', position: [-2.4, -1.6, -0.2], kind: 'data' },
-  { id: 'redis', label: 'Redis', position: [0.4, -1.5, -1.6], kind: 'data' },
-  { id: 'queue', label: 'Queue', position: [2.4, -1.2, -0.6], kind: 'data' },
-  { id: 'ai', label: 'AI Agent', position: [2.0, 1.6, -1.2], kind: 'ai' },
-  { id: 'rag', label: 'RAG · Vector', position: [3.0, 0.2, -1.8], kind: 'ai' },
+  { id: 'yasser', label: 'Yasser', position: [0, 0.3, 0], kind: 'core' },
+  { id: 'api', label: 'API Systems', position: [-2.8, 1.3, 0.4], kind: 'domain' },
+  { id: 'saas', label: 'SaaS', position: [0.2, 2.5, -0.8], kind: 'domain' },
+  { id: 'ai', label: 'AI Agents', position: [2.8, 1.2, -0.5], kind: 'ai' },
+  { id: 'realtime', label: 'Realtime', position: [2.4, -1.5, 0.8], kind: 'domain' },
+  { id: 'data', label: 'Data Layer', position: [-2.5, -1.5, -0.7], kind: 'data' },
+  { id: 'dashboard', label: 'Dashboards', position: [0, -2.6, 0.2], kind: 'domain' },
+  { id: 'ibra', label: 'IbraAgent', position: [3.8, 0, -1.5], kind: 'project' },
+  { id: 'azzm', label: 'Azzm PM', position: [-3.8, -0.2, 1.4], kind: 'project' },
+  { id: 'bridge', label: 'BridgeAI', position: [1.5, 3.3, 0.8], kind: 'project' },
+  { id: 'clinic', label: 'Clinic SaaS', position: [-1.7, -3.2, -0.9], kind: 'project' },
+  { id: 'laravel', label: 'Laravel', position: [-1.1, 0.9, 1.7], kind: 'service' },
+  { id: 'fastapi', label: 'FastAPI', position: [1.2, 0.9, 1.6], kind: 'service' },
+  { id: 'postgres', label: 'PostgreSQL', position: [-1.1, -0.9, -1.7], kind: 'data' },
+  { id: 'redis', label: 'Redis', position: [1.2, -0.9, -1.5], kind: 'data' },
+  { id: 'rag', label: 'RAG · Vector', position: [3.0, 2.2, -1.9], kind: 'ai' },
 ];
 
 export const EDGES: GraphEdge[] = [
-  ['client', 'gateway'],
-  ['gateway', 'auth'],
-  ['gateway', 'fastapi'],
-  ['gateway', 'laravel'],
-  ['fastapi', 'postgres'],
-  ['fastapi', 'redis'],
-  ['fastapi', 'ai'],
-  ['laravel', 'postgres'],
-  ['laravel', 'queue'],
-  ['auth', 'postgres'],
-  ['redis', 'queue'],
+  ['yasser', 'api'],
+  ['yasser', 'saas'],
+  ['yasser', 'ai'],
+  ['yasser', 'realtime'],
+  ['yasser', 'data'],
+  ['yasser', 'dashboard'],
+  ['yasser', 'ibra'],
+  ['yasser', 'azzm'],
+  ['yasser', 'bridge'],
+  ['yasser', 'clinic'],
+  ['api', 'laravel'],
+  ['api', 'fastapi'],
+  ['data', 'postgres'],
+  ['data', 'redis'],
   ['ai', 'rag'],
+  ['ibra', 'ai'],
+  ['ibra', 'realtime'],
+  ['ibra', 'fastapi'],
+  ['azzm', 'laravel'],
+  ['azzm', 'dashboard'],
+  ['bridge', 'ai'],
+  ['bridge', 'rag'],
+  ['clinic', 'dashboard'],
+  ['clinic', 'laravel'],
 ];
 
 export const KIND_COLOR: Record<GraphNode['kind'], string> = {
-  edge: '#fbbf24', // amber
-  service: '#f59e0b', // amber-600-ish
-  data: '#38bdf8', // sky
-  ai: '#a78bfa', // violet for AI
+  core: '#fef3c7',
+  domain: '#fbbf24',
+  project: '#fb923c',
+  service: '#f59e0b',
+  data: '#38bdf8',
+  ai: '#a78bfa',
 };
 
 // A request trace = an ordered walk of nodes a real request takes through the
@@ -54,23 +75,29 @@ export type Route = {
 };
 
 export const ROUTES: Route[] = [
-  { method: 'POST', path: '/auth/login', status: '200 OK · 28ms', ok: true, hops: ['client', 'gateway', 'auth', 'postgres'] },
-  { method: 'GET', path: '/api/tenants', status: '200 OK · 42ms', ok: true, hops: ['client', 'gateway', 'fastapi', 'postgres'] },
-  { method: 'GET', path: '/api/dashboard', status: '200 · 11ms · cache', ok: true, hops: ['client', 'gateway', 'fastapi', 'redis'] },
-  { method: 'POST', path: '/api/agent/query', status: '200 OK · 1.2s', ok: true, hops: ['client', 'gateway', 'fastapi', 'ai', 'rag'] },
-  { method: 'POST', path: '/api/jobs/export', status: '202 Accepted', ok: true, hops: ['client', 'gateway', 'laravel', 'queue'] },
+  { method: 'POST', path: '/projects/ibra-agent/message', status: '200 OK · RAG grounded', ok: true, hops: ['yasser', 'ibra', 'fastapi', 'ai', 'rag'] },
+  { method: 'GET', path: '/systems/saas-dashboard', status: '200 OK · 1.5k users', ok: true, hops: ['yasser', 'saas', 'dashboard', 'clinic', 'laravel'] },
+  { method: 'PUT', path: '/workflows/construction/progress', status: '202 Accepted · queued', ok: true, hops: ['yasser', 'azzm', 'laravel', 'data', 'postgres'] },
+  { method: 'POST', path: '/requirements/bridge-ai/generate', status: '200 OK · multi-agent', ok: true, hops: ['yasser', 'bridge', 'ai', 'rag'] },
+  { method: 'GET', path: '/api/realtime/cache-hit', status: '200 · 11ms · redis', ok: true, hops: ['yasser', 'api', 'fastapi', 'realtime', 'redis'] },
 ];
 
 // Short descriptor + headline metric shown when a node is clicked/inspected.
 export const NODE_META: Record<string, { role: string; metric: string }> = {
-  client: { role: 'User / Browser', metric: '1,500+ daily active users' },
-  gateway: { role: 'API Gateway', metric: 'routes 5,000+ req / day' },
-  auth: { role: 'Auth · RBAC', metric: 'JWT · role-based access' },
-  fastapi: { role: 'FastAPI service', metric: 'async Python APIs' },
-  laravel: { role: 'Laravel service', metric: 'multi-tenant SaaS core' },
-  postgres: { role: 'PostgreSQL', metric: 'tenant-isolated data' },
-  redis: { role: 'Redis cache', metric: 'sub-15ms cache hits' },
-  queue: { role: 'Queue worker', metric: 'async background jobs' },
-  ai: { role: 'AI Agent', metric: 'LangGraph multi-agent' },
+  yasser: { role: 'Systems Builder', metric: 'backend · SaaS · AI workflows' },
+  api: { role: 'API Systems', metric: '5,000+ daily requests' },
+  saas: { role: 'SaaS Platforms', metric: 'multi-tenant delivery' },
+  ai: { role: 'AI Agents', metric: 'LangGraph · RAG · Meta APIs' },
+  realtime: { role: 'Realtime Flows', metric: 'WebSockets · Redis pub-sub' },
+  data: { role: 'Data Layer', metric: 'PostgreSQL · MySQL · ChromaDB' },
+  dashboard: { role: 'Dashboards', metric: 'role-based operational UIs' },
+  ibra: { role: 'IbraAgent', metric: 'AI customer-service SaaS' },
+  azzm: { role: 'Azzm / DesAzem', metric: 'construction PM workflows' },
+  bridge: { role: 'BridgeAI', metric: 'requirements multi-agent platform' },
+  clinic: { role: 'Clinic SaaS', metric: '1,500+ daily active users' },
+  laravel: { role: 'Laravel Service', metric: 'RBAC · queues · Livewire' },
+  fastapi: { role: 'FastAPI Service', metric: 'async Python APIs' },
+  postgres: { role: 'PostgreSQL', metric: 'tenant-aware schemas' },
+  redis: { role: 'Redis', metric: 'cache · pub-sub · queues' },
   rag: { role: 'RAG · Vector', metric: 'semantic retrieval' },
 };

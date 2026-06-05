@@ -11,7 +11,13 @@ const SystemGraph = dynamic(() => import('./SystemGraph'), {
   loading: () => <SystemGraphFallback />,
 });
 
-export default function SystemGraphMount() {
+export default function SystemGraphMount({
+  mode = 'compact',
+  className = '',
+}: {
+  mode?: 'compact' | 'hero';
+  className?: string;
+}) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -59,14 +65,24 @@ export default function SystemGraphMount() {
         : '#f87171'
       : '#fbbf24';
 
+  const isHero = mode === 'hero';
+
   return (
-    <div ref={ref} className="relative w-full aspect-square max-w-[480px] mx-auto">
+    <div
+      ref={ref}
+      className={[
+        'relative w-full mx-auto',
+        isHero ? 'h-full min-h-[430px] lg:min-h-[650px]' : 'aspect-square max-w-[480px]',
+        className,
+      ].join(' ')}
+      data-cursor="orbit"
+    >
       {/* glow */}
       <div
-        className="absolute inset-8 rounded-full blur-3xl opacity-30"
+        className={isHero ? 'absolute inset-0 rounded-full blur-3xl opacity-25' : 'absolute inset-8 rounded-full blur-3xl opacity-30'}
         style={{
           background:
-            'radial-gradient(circle, var(--primary-500) 0%, transparent 60%)',
+            'radial-gradient(circle, var(--primary-500) 0%, rgba(56,189,248,0.18) 32%, transparent 66%)',
         }}
         aria-hidden
       />
@@ -74,7 +90,10 @@ export default function SystemGraphMount() {
       {/* live request-trace readout */}
       {live && trace && (
         <div
-          className="absolute top-3 left-3 z-10 pointer-events-none font-mono text-[11px] leading-relaxed"
+          className={[
+            'absolute z-10 pointer-events-none font-mono text-[11px] leading-relaxed',
+            isHero ? 'top-4 right-4 hidden sm:block' : 'top-3 left-3',
+          ].join(' ')}
           style={{
             background: 'rgba(12,10,9,0.7)',
             border: '1px solid var(--border)',
@@ -98,10 +117,17 @@ export default function SystemGraphMount() {
         {live ? <SystemGraph onTrace={setTrace} /> : <SystemGraphFallback />}
       </div>
 
-      <p className="mt-2 text-center mono-label">
+      <p
+        className={[
+          'mono-label',
+          isHero
+            ? 'absolute bottom-3 left-1/2 -translate-x-1/2 hidden sm:block whitespace-nowrap'
+            : 'mt-2 text-center',
+        ].join(' ')}
+      >
         {live
-          ? '// click a node to inspect · drag to orbit'
-          : '// live request trace · system map'}
+          ? '// live systems console · click nodes · drag to orbit'
+          : '// live systems console · static systems map'}
       </p>
     </div>
   );

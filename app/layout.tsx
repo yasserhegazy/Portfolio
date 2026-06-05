@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import FloatingActions from '@/components/FloatingActions';
 import ScrollProgress from '@/components/ui/ScrollProgress';
 import PageLoader from '@/components/ui/PageLoader';
+import SmartCursor from '@/components/ui/SmartCursor';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -58,6 +59,7 @@ export default function RootLayout({
           <LanguageProvider>
             <PageLoader />
             <ScrollProgress />
+            <SmartCursor />
             <div className="min-h-screen flex flex-col">
               <Navbar />
               <main className="flex-grow">
