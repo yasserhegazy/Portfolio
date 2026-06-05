@@ -250,3 +250,95 @@
 .marquee-container:hover .marquee-row {
   animation-play-state: paused;
 }
+
+@media (pointer: fine) and (min-width: 1024px) {
+  .has-smart-cursor,
+  .has-smart-cursor a,
+  .has-smart-cursor button,
+  .has-smart-cursor [role="button"],
+  .has-smart-cursor [data-cursor] {
+    cursor: none;
+  }
+}
+
+.smart-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 160ms ease;
+  will-change: transform;
+}
+
+.smart-cursor-visible {
+  opacity: 1;
+}
+
+.smart-cursor-ring,
+.smart-cursor-dot,
+.smart-cursor-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+}
+
+.smart-cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1px solid color-mix(in srgb, var(--primary-500) 72%, transparent);
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--primary-500) 20%, transparent) 0%, transparent 64%),
+    color-mix(in srgb, var(--background) 10%, transparent);
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--primary-500) 35%, transparent),
+    inset 0 0 18px color-mix(in srgb, var(--accent-500) 18%, transparent);
+  transition: width 160ms ease, height 160ms ease, border-color 160ms ease, opacity 160ms ease;
+}
+
+.smart-cursor-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--primary-400);
+  box-shadow: 0 0 12px var(--primary-500);
+}
+
+.smart-cursor-active .smart-cursor-ring {
+  width: 24px;
+  height: 24px;
+  border-color: var(--accent-400);
+}
+
+.smart-cursor-labelled .smart-cursor-ring {
+  width: 46px;
+  height: 46px;
+}
+
+.smart-cursor-label {
+  margin-left: 31px;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  color: var(--foreground);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.68rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0;
+  white-space: nowrap;
+  backdrop-filter: blur(6px);
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.smart-cursor-labelled .smart-cursor-label {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
