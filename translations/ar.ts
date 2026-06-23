@@ -344,5 +344,6 @@ export const ar: TranslationType = {
     contact: 'تواصل',
     linkedin: 'LinkedIn',
     whatsapp: 'واتساب',
+    close: 'إغلاق',
   },
 };

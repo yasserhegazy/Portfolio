@@ -342,6 +342,7 @@ export const en = {
     contact: 'Contact',
     linkedin: 'LinkedIn',
     whatsapp: 'WhatsApp',
+    close: 'Close',
   },
 };
 

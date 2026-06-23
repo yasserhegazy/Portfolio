@@ -48,6 +48,9 @@
   --signal-ok: #059669;
   --signal-warn: #d97706;
   --grid-line: rgba(120, 113, 108, 0.08);
+  /* Readable amber for text-on-background contexts; raw --primary-500 stays
+     for buttons/icons/borders where it sits on its own surface, not the page bg. */
+  --primary-text: var(--primary-700);
 }
 
 .dark {
@@ -64,6 +67,7 @@
   --signal-ok: #34d399;
   --signal-warn: #fbbf24;
   --grid-line: rgba(245, 158, 11, 0.06);
+  --primary-text: var(--primary-400);
 }
 
 @layer base {
@@ -168,6 +172,9 @@
   .text-link {
     color: var(--link);
   }
+  .text-primary-text {
+    color: var(--primary-text);
+  }
   .bg-surface {
     background-color: var(--surface);
   }
@@ -196,7 +203,7 @@
   }
 
   .section-padding {
-    @apply py-16 md:py-24 lg:py-28;
+    @apply py-16 md:py-24 lg:py-28 xl:py-32;
   }
 
   .container-custom {
@@ -321,7 +328,6 @@
 }
 
 .smart-cursor-label {
-  margin-left: 31px;
   padding: 0.2rem 0.45rem;
   border: 1px solid var(--border);
   border-radius: 0.375rem;
@@ -340,5 +346,5 @@
 
 .smart-cursor-labelled .smart-cursor-label {
   opacity: 1;
-  transform: translate(0, -50%);
+  transform: translate(-50%, 14px);
 }
