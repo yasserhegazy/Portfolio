@@ -47,7 +47,7 @@ export default function Experience() {
                       <span className="mono-label text-[var(--signal-ok)]">● active</span>
                     )}
                   </div>
-                  <p className="font-mono text-sm text-primary-500 mb-3">{job.company}</p>
+                  <p className="font-mono text-sm text-primary-text mb-3">{job.company}</p>
 
                   <div className="flex flex-wrap gap-4 mb-4 text-xs text-muted font-mono">
                     <span className="inline-flex items-center gap-1.5">

@@ -31,7 +31,7 @@ export default function Education() {
             </span>
             <div className="flex-1">
               <h3 className="text-xl font-bold text-foreground mb-1">{t.education.degree}</h3>
-              <p className="font-mono text-sm text-primary-500 mb-2">{t.education.university}</p>
+              <p className="font-mono text-sm text-primary-text mb-2">{t.education.university}</p>
               <div className="flex items-center gap-1.5 text-xs text-muted font-mono mb-4">
                 <Calendar className="w-3.5 h-3.5" />
                 {t.education.period}
@@ -40,7 +40,7 @@ export default function Education() {
                 <span className="tech-chip border-[var(--signal-ok)]/40 text-[var(--signal-ok)]">
                   {t.education.gpa}
                 </span>
-                <span className="tech-chip border-primary-500/40 text-primary-500">
+                <span className="tech-chip border-primary-500/40 text-primary-text">
                   ★ {t.education.achievement}
                 </span>
               </div>
@@ -77,7 +77,7 @@ export default function Education() {
         </motion.div>
 
         {/* Certifications */}
-        <h3 className="font-mono text-sm text-primary-500 mb-4">{`// ${t.education.certificationsTitle}`}</h3>
+        <h3 className="font-mono text-sm text-primary-text mb-4">{`// ${t.education.certificationsTitle}`}</h3>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {t.education.certifications.map((cert, i) => (
             <Panel key={cert.title} delay={(i % 3) * 0.06} interactive className="!p-5">

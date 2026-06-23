@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { translations } from '@/translations';
-import { Menu, X, Moon, Sun, Globe } from 'lucide-react';
+import { Menu, X, Moon, Sun, Globe, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
@@ -105,7 +105,7 @@ export default function Navbar() {
                     scrollToSection(item.href);
                   }}
                   className={`relative font-mono text-sm transition-colors pb-1 ${
-                    isActive ? 'text-primary-500' : 'text-muted hover:text-foreground'
+                    isActive ? 'text-primary-text' : 'text-muted hover:text-foreground'
                   }`}
                 >
                   <span className="text-primary-500/50 me-1">{item.i}</span>
@@ -174,6 +174,15 @@ export default function Navbar() {
               className="lg:hidden mt-4 panel overflow-hidden"
             >
               <div className="flex flex-col p-3 gap-1">
+                <a
+                  href="/cv/Yasser-Hegazy-CV.pdf"
+                  download
+                  data-cursor="download"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg font-mono text-sm font-semibold bg-primary-500/10 text-primary-text hover:bg-primary-500/15 transition-colors mb-1"
+                >
+                  <Download className="w-4 h-4" />
+                  {t.hero.downloadCV}
+                </a>
                 {navItems.map((item) => (
                   <a
                     key={item.href}

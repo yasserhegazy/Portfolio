@@ -55,7 +55,7 @@ export default function Projects() {
                   <span className="mono-label">{project.subtitle}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary-500 transition-colors">
+                <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary-text transition-colors">
                   {project.title}
                 </h3>
                 <p className="text-sm text-muted leading-relaxed line-clamp-3 mb-4">
@@ -73,7 +73,7 @@ export default function Projects() {
                   )}
                 </div>
 
-                <span className="inline-flex items-center gap-1.5 font-mono text-sm text-primary-500 group-hover:gap-2.5 transition-all">
+                <span className="inline-flex items-center gap-1.5 font-mono text-sm text-primary-text group-hover:gap-2.5 transition-all">
                   {t.projects.viewDetails}
                   <ArrowUpRight className="w-4 h-4" />
                 </span>
@@ -130,7 +130,7 @@ export default function Projects() {
 
                     <div className="p-6 md:p-8">
                       <div className="mb-5">
-                        <span className="mono-label text-primary-500/80">{project.subtitle}</span>
+                        <span className="mono-label text-primary-text/80">{project.subtitle}</span>
                         <h2 className="text-2xl md:text-3xl font-bold text-foreground mt-1">
                           {project.title}
                         </h2>
@@ -139,7 +139,7 @@ export default function Projects() {
                       <p className="text-muted leading-relaxed mb-6">{project.description}</p>
 
                       <div className="mb-6">
-                        <h3 className="font-mono text-sm text-primary-500 mb-3">{`// ${t.projects.techStack}`}</h3>
+                        <h3 className="font-mono text-sm text-primary-text mb-3">{`// ${t.projects.techStack}`}</h3>
                         <div className="flex flex-wrap gap-2">
                           {project.techStack.map((tech) => (
                             <span key={tech} className="tech-chip">
@@ -150,7 +150,7 @@ export default function Projects() {
                       </div>
 
                       <div className="mb-7">
-                        <h3 className="font-mono text-sm text-primary-500 mb-3">{`// ${t.projects.architecture}`}</h3>
+                        <h3 className="font-mono text-sm text-primary-text mb-3">{`// ${t.projects.architecture}`}</h3>
                         <ul className="space-y-2">
                           {project.architecture.map((item, idx) => (
                             <li key={idx} className="flex items-start gap-2.5 text-sm text-muted leading-relaxed">

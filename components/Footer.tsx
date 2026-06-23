@@ -27,7 +27,7 @@ export default function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="font-mono text-sm text-primary-500 mb-4">
+            <h4 className="font-mono text-sm text-primary-text mb-4">
               {`// ${t.nav.contact}`}
             </h4>
             <div className="space-y-2">
@@ -50,7 +50,7 @@ export default function Footer() {
 
           {/* Social */}
           <div>
-            <h4 className="font-mono text-sm text-primary-500 mb-4">
+            <h4 className="font-mono text-sm text-primary-text mb-4">
               {`// ${t.footer.social}`}
             </h4>
             <div className="flex gap-3">

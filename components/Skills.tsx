@@ -40,7 +40,7 @@ export default function Skills() {
                   <layer.icon className="w-4 h-4 text-primary-500" />
                 </span>
                 <div>
-                  <div className="mono-label text-primary-500/80">{`0${i + 1}`}</div>
+                  <div className="mono-label text-primary-text/80">{`0${i + 1}`}</div>
                   <div className="font-semibold text-sm text-foreground">
                     {t.skills.categories[layer.key]}
                   </div>

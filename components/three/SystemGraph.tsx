@@ -5,6 +5,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Html, Line, OrbitControls } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
+import { useTheme } from '@/contexts/ThemeContext';
 import {
   NODES,
   EDGES,
@@ -50,6 +51,8 @@ function Node({
   onHover: (id: string | null) => void;
   onSelect: (id: string) => void;
 }) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const meshRef = useRef<THREE.Mesh>(null);
   const haloRef = useRef<THREE.Mesh>(null);
   const color = KIND_COLOR[node.kind];
@@ -156,11 +159,15 @@ function Node({
             fontFamily: 'var(--font-mono), monospace',
             fontSize: '12px',
             whiteSpace: 'nowrap',
-            color: selected || hovered ? '#fafaf9' : dimmed ? '#57534e' : '#a8a29e',
-            background: 'rgba(12,10,9,0.55)',
+            color: isDark
+              ? selected || hovered ? '#fafaf9' : dimmed ? '#57534e' : '#a8a29e'
+              : selected || hovered ? '#1c1917' : dimmed ? '#d6d3d1' : '#57534e',
+            background: isDark ? 'rgba(12,10,9,0.55)' : 'rgba(250,250,249,0.85)',
             padding: '1px 6px',
             borderRadius: '4px',
-            border: `1px solid ${selected || hovered ? color : 'transparent'}`,
+            border: `1px solid ${
+              selected || hovered ? color : isDark ? 'transparent' : 'rgba(28,25,23,0.12)'
+            }`,
             transition: 'color .2s, border-color .2s',
           }}
         >
@@ -180,17 +187,17 @@ function Node({
               fontFamily: 'var(--font-mono), monospace',
               width: '150px',
               textAlign: 'center',
-              background: 'rgba(12,10,9,0.92)',
+              background: isDark ? 'rgba(12,10,9,0.92)' : 'rgba(255,255,255,0.92)',
               border: `1px solid ${color}`,
               borderRadius: '8px',
               padding: '8px 10px',
               boxShadow: `0 0 18px ${color}55`,
             }}
           >
-            <div style={{ color: '#fafaf9', fontSize: '12px', fontWeight: 700 }}>
+            <div style={{ color: isDark ? '#fafaf9' : '#1c1917', fontSize: '12px', fontWeight: 700 }}>
               {meta.role}
             </div>
-            <div style={{ color: '#a8a29e', fontSize: '10px', marginTop: '3px' }}>
+            <div style={{ color: isDark ? '#a8a29e' : '#57534e', fontSize: '10px', marginTop: '3px' }}>
               {meta.metric}
             </div>
           </div>
@@ -401,6 +408,8 @@ function Trace({
 }
 
 function Scene({ onTrace }: { onTrace: (info: TraceInfo) => void }) {
+  const { theme } = useTheme();
+  const fogColor = theme === 'dark' ? '#0c0a09' : '#fafaf9';
   const activations = useRef<Activations>(new Map()).current;
   const [hovered, setHovered] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
@@ -423,7 +432,7 @@ function Scene({ onTrace }: { onTrace: (info: TraceInfo) => void }) {
 
   return (
     <>
-      <fog attach="fog" args={['#0c0a09', 7.5, 14]} />
+      <fog attach="fog" args={[fogColor, 7.5, 14]} />
       <ambientLight intensity={0.5} />
       <pointLight position={[6, 6, 6]} intensity={40} color="#fbbf24" />
       <pointLight position={[-6, -3, -4]} intensity={25} color="#38bdf8" />

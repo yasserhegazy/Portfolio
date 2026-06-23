@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useReducedMotion } from 'framer-motion';
+import { useTheme } from '@/contexts/ThemeContext';
 import SystemGraphFallback from './SystemGraphFallback';
 import type { TraceInfo } from './SystemGraph';
 
@@ -19,6 +20,8 @@ export default function SystemGraphMount({
   className?: string;
 }) {
   const reduce = useReducedMotion();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [canUse3D, setCanUse3D] = useState(false);
@@ -58,12 +61,15 @@ export default function SystemGraphMount({
   const live = canUse3D && inView;
   const responding = trace?.phase === 'response';
   const statusColor = !trace
-    ? '#a8a29e'
+    ? (isDark ? '#a8a29e' : '#57534e')
     : responding
       ? trace.ok
-        ? '#34d399'
+        ? (isDark ? '#34d399' : '#059669')
         : '#f87171'
-      : '#fbbf24';
+      : (isDark ? '#fbbf24' : '#b45309');
+  const cardBg = isDark ? 'rgba(12,10,9,0.7)' : 'rgba(255,255,255,0.82)';
+  const methodColor = isDark ? '#fbbf24' : '#b45309';
+  const pathColor = isDark ? '#fafaf9' : '#1c1917';
 
   const isHero = mode === 'hero';
 
@@ -95,7 +101,7 @@ export default function SystemGraphMount({
             isHero ? 'top-4 right-4 hidden sm:block' : 'top-3 left-3',
           ].join(' ')}
           style={{
-            background: 'rgba(12,10,9,0.7)',
+            background: cardBg,
             border: '1px solid var(--border)',
             borderRadius: '8px',
             padding: '6px 10px',
@@ -103,8 +109,8 @@ export default function SystemGraphMount({
           }}
         >
           <div className="flex items-center gap-2">
-            <span style={{ color: '#fbbf24', fontWeight: 700 }}>{trace.method}</span>
-            <span style={{ color: '#fafaf9' }}>{trace.path}</span>
+            <span style={{ color: methodColor, fontWeight: 700 }}>{trace.method}</span>
+            <span style={{ color: pathColor }}>{trace.path}</span>
           </div>
           <div className="flex items-center gap-1.5" style={{ color: statusColor }}>
             <span>{responding ? '◂─' : '─▸'}</span>

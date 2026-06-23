@@ -31,7 +31,7 @@ export default function SectionHeader({
       <div
         className={`flex items-center gap-3 mb-4 ${centered ? 'justify-center' : ''}`}
       >
-        <span className="font-mono text-sm text-primary-500 tabular-nums">
+        <span className="font-mono text-sm text-primary-text tabular-nums">
           {index}
         </span>
         <span className="h-px w-8 bg-[var(--border-strong)]" aria-hidden />

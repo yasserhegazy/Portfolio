@@ -115,7 +115,7 @@ export default function Contact() {
                   </span>
                   <div className="min-w-0">
                     <div className="mono-label">{c.label}</div>
-                    <div className="text-sm text-foreground truncate">{c.value}</div>
+                    <div className="text-sm text-foreground line-clamp-2">{c.value}</div>
                   </div>
                 </div>
               );

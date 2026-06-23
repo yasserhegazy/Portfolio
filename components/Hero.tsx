@@ -45,17 +45,17 @@ export default function Hero() {
       />
 
       <div
-        className="absolute inset-y-10 -right-28 z-0 w-[125%] sm:w-[110%] lg:right-0 lg:w-[68%] opacity-35 sm:opacity-45 lg:opacity-100 pointer-events-none lg:pointer-events-auto"
+        className="absolute inset-y-10 -right-28 z-0 w-[125%] sm:w-[110%] lg:right-0 lg:w-[68%] opacity-35 sm:opacity-45 lg:opacity-90 pointer-events-none lg:pointer-events-auto"
         aria-label="Interactive portfolio systems console"
       >
         <SystemGraphMount mode="hero" />
       </div>
 
       <div
-        className="absolute inset-y-0 left-0 z-[1] w-full lg:w-[62%] pointer-events-none"
+        className="absolute inset-y-0 left-0 z-[1] w-full lg:w-[85%] pointer-events-none"
         style={{
           background:
-            'linear-gradient(90deg, var(--background) 0%, color-mix(in srgb, var(--background) 92%, transparent) 55%, transparent 100%)',
+            'linear-gradient(90deg, var(--background) 0%, var(--background) 65%, transparent 100%)',
         }}
         aria-hidden
       />
@@ -118,7 +118,7 @@ export default function Hero() {
           >
             {t.hero.metrics.map((m) => (
               <div key={m.label} className="panel px-3 py-3 bg-[var(--surface)]/88 backdrop-blur-sm">
-                <div className="font-mono text-lg md:text-xl font-bold text-primary-500 tabular-nums">
+                <div className="font-mono text-lg md:text-xl font-bold text-primary-text tabular-nums">
                   {m.value}
                 </div>
                 <div className="mono-label leading-tight">{m.label}</div>
