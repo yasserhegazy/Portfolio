@@ -5,7 +5,6 @@ import { translations } from '@/translations';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Download, Mail, Terminal } from 'lucide-react';
 import TypeWriter from '@/components/ui/TypeWriter';
-import TerminalWindow from '@/components/ui/TerminalWindow';
 import SystemGraphMount from '@/components/three/SystemGraphMount';
 
 export default function Hero() {
@@ -153,24 +152,6 @@ export default function Hero() {
               <Mail className="w-4 h-4" />
               {t.hero.contactMe}
             </button>
-          </motion.div>
-
-          <motion.div {...reveal(0.35)} className="mt-7 hidden md:block max-w-xl">
-            <TerminalWindow title={t.hero.terminal.prompt}>
-              <div className="space-y-1.5">
-                {t.hero.terminal.commands.map((c) => (
-                  <div key={c.cmd}>
-                    <div className="flex gap-2">
-                      <span className="text-primary-500/80 shrink-0">
-                        {t.hero.terminal.prompt}
-                      </span>
-                      <span className="text-foreground">{c.cmd}</span>
-                    </div>
-                    <div className="text-muted ps-1">{c.out}</div>
-                  </div>
-                ))}
-              </div>
-            </TerminalWindow>
           </motion.div>
         </div>
       </div>

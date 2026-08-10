@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { MapPin, GraduationCap, Languages, BriefcaseBusiness } from 'lucide-react';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Panel from '@/components/ui/Panel';
+import TerminalWindow from '@/components/ui/TerminalWindow';
 
 export default function About() {
   const { language } = useLanguage();
@@ -81,6 +82,30 @@ export default function About() {
                 {text}
               </motion.p>
             ))}
+
+            <motion.div
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="pt-2"
+            >
+              <TerminalWindow title={t.hero.terminal.prompt}>
+                <div className="space-y-1.5">
+                  {t.hero.terminal.commands.map((c) => (
+                    <div key={c.cmd}>
+                      <div className="flex gap-2">
+                        <span className="text-primary-500/80 shrink-0">
+                          {t.hero.terminal.prompt}
+                        </span>
+                        <span className="text-foreground">{c.cmd}</span>
+                      </div>
+                      <div className="text-muted ps-1">{c.out}</div>
+                    </div>
+                  ))}
+                </div>
+              </TerminalWindow>
+            </motion.div>
           </div>
         </div>
       </div>
