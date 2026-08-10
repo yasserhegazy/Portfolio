@@ -4,7 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/translations';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Mail, MapPin, Send, CheckCircle, Phone, MessageCircle, ExternalLink } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle, Phone, MessageCircle, Linkedin, Github } from 'lucide-react';
 import SectionHeader from '@/components/ui/SectionHeader';
 
 export default function Contact() {
@@ -87,16 +87,16 @@ export default function Contact() {
   const contacts = [
     { icon: Mail, label: 'email', value: t.contact.info.email, href: `mailto:${t.contact.info.email}` },
     { icon: Phone, label: t.contact.info.phoneLabel, value: t.contact.info.phone, href: `tel:${t.contact.info.phone.replace(/\s/g, '')}` },
+    { icon: Linkedin, label: t.contact.info.linkedin, value: 'in/yasser-hegazy', href: 'https://www.linkedin.com/in/yasser-hegazy-134794248/' },
+    { icon: Github, label: t.contact.info.github, value: 'github.com/yasserhegazy', href: 'https://github.com/yasserhegazy' },
+    { icon: MessageCircle, label: t.contact.info.whatsapp, value: t.contact.info.phone, href: 'https://api.whatsapp.com/send/?phone=970567777368' },
     { icon: MapPin, label: t.contact.info.location, value: t.contact.info.availability, href: null },
-    { icon: MessageCircle, label: 'whatsapp', value: t.contact.info.whatsapp, href: 'https://api.whatsapp.com/send/?phone=970567777368' },
-    { icon: ExternalLink, label: 'mostaql', value: t.contact.info.mostaql, href: 'https://mostaql.com/u/YHegazy' },
-    { icon: ExternalLink, label: 'upwork', value: t.contact.info.upwork, href: 'https://upwork.com/freelancers/~01122d39b9a2ff1593' },
   ];
 
   return (
-    <section id="contact" className="relative section-padding">
+    <section id="contact" className="relative section-padding bg-surface">
       <div className="container-custom">
-        <SectionHeader index="08" command="./connect" title={t.contact.title} subtitle={t.contact.subtitle} />
+        <SectionHeader index="09" command="./connect" title={t.contact.title} subtitle={t.contact.subtitle} />
 
         <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Contact channels */}

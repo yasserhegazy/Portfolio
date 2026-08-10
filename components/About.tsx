@@ -4,7 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/translations';
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
-import { MapPin, GraduationCap, Languages, Phone } from 'lucide-react';
+import { MapPin, GraduationCap, Languages, BriefcaseBusiness } from 'lucide-react';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Panel from '@/components/ui/Panel';
 
@@ -19,7 +19,7 @@ export default function About() {
     { icon: MapPin, label: t.about.location, value: t.about.locationValue },
     { icon: GraduationCap, label: t.about.university, value: t.about.universityValue },
     { icon: Languages, label: t.about.languages, value: t.about.languagesValue },
-    { icon: Phone, label: t.about.phone, value: t.about.phoneValue },
+    { icon: BriefcaseBusiness, label: t.about.phone, value: t.about.phoneValue },
   ];
 
   return (

@@ -66,7 +66,7 @@ export default function Hero() {
             <span className="font-mono text-sm text-primary-500">00</span>
             <span className="h-px w-8 bg-[var(--border-strong)]" aria-hidden />
             <span className="font-mono text-sm text-muted">
-              <span className="text-primary-500/70">$</span> ./boot-live-systems
+              <span className="text-primary-500/70">$</span> ./ship-reliable-ai
             </span>
           </motion.div>
 
@@ -87,7 +87,7 @@ export default function Hero() {
             <span className="text-faint">·</span>
             <span className="text-muted">{t.hero.openToRemote}</span>
             <span className="hidden sm:inline text-faint">·</span>
-            <span className="hidden sm:inline text-muted">SaaS · APIs · AI agents</span>
+            <span className="hidden sm:inline text-muted">Applied AI · Backend · AI Infra</span>
           </motion.div>
 
           <motion.h1
@@ -118,7 +118,7 @@ export default function Hero() {
           >
             {t.hero.metrics.map((m) => (
               <div key={m.label} className="panel px-3 py-3 bg-[var(--surface)]/88 backdrop-blur-sm">
-                <div className="font-mono text-lg md:text-xl font-bold text-primary-text tabular-nums">
+                <div dir="ltr" className="font-mono text-lg md:text-xl font-bold text-primary-text tabular-nums text-start">
                   {m.value}
                 </div>
                 <div className="mono-label leading-tight">{m.label}</div>

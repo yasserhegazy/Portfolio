@@ -31,9 +31,9 @@ export default function GithubStats() {
   );
 
   return (
-    <section id="github" className="relative section-padding bg-surface">
+    <section id="github" className="relative section-padding">
       <div className="container-custom">
-        <SectionHeader index="07" command="git stats" title={t.github.title} subtitle={t.github.subtitle} />
+        <SectionHeader index="08" command="git stats" title={t.github.title} subtitle={t.github.subtitle} />
 
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 20 }}

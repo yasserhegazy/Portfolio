@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { X, Github, Globe, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import SectionHeader from '@/components/ui/SectionHeader';
+import ProjectVisual from '@/components/ui/ProjectVisual';
 
 export default function Projects() {
   const { language } = useLanguage();
@@ -21,7 +22,7 @@ export default function Projects() {
   return (
     <section id="projects" className="relative section-padding">
       <div className="container-custom">
-        <SectionHeader index="04" command="ls services/" title={t.projects.title} subtitle={t.projects.subtitle} />
+        <SectionHeader index="04" command="ls projects/" title={t.projects.title} subtitle={t.projects.subtitle} />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {t.projects.items.map((project, i) => (
@@ -35,13 +36,19 @@ export default function Projects() {
               className="panel group text-start overflow-hidden hover:border-[var(--border-strong)] transition-colors flex flex-col"
             >
               <div className="relative w-full aspect-video overflow-hidden border-b border-[var(--border)]">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
+                {project.image ? (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                ) : (
+                  <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
+                    <ProjectVisual title={project.title} tag={project.subtitle} />
+                  </div>
+                )}
               </div>
 
               <div className="p-5 flex flex-col flex-1">
@@ -110,14 +117,18 @@ export default function Projects() {
                 return (
                   <div>
                     <div className="relative w-full aspect-video rounded-t-xl overflow-hidden">
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 768px"
-                        priority
-                      />
+                      {project.image ? (
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 768px"
+                          priority
+                        />
+                      ) : (
+                        <ProjectVisual title={project.title} tag={project.subtitle} />
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                       <button
                         onClick={() => setSelectedProject(null)}
@@ -162,15 +173,17 @@ export default function Projects() {
                       </div>
 
                       <div className="flex flex-wrap gap-3">
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary-500 hover:bg-primary-600 text-[#0c0a09] font-semibold transition-colors"
-                        >
-                          <Globe className="w-4 h-4" />
-                          {t.projects.viewLive}
-                        </a>
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary-500 hover:bg-primary-600 text-[#0c0a09] font-semibold transition-colors"
+                          >
+                            <Globe className="w-4 h-4" />
+                            {t.projects.viewLive}
+                          </a>
+                        )}
 
                         {isMultiRepo(project.github) ? (
                           <>
@@ -204,6 +217,13 @@ export default function Projects() {
                             {t.projects.viewGithub}
                           </a>
                         ) : null}
+
+                        {!project.liveUrl && !project.github && (
+                          <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg panel-elevated font-mono text-sm text-muted">
+                            <span className="w-2 h-2 rounded-full bg-[var(--signal-warn)]" />
+                            {t.projects.privateNote}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
