@@ -5,7 +5,6 @@ import { translations } from '@/translations';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Download, Mail, Terminal } from 'lucide-react';
 import TypeWriter from '@/components/ui/TypeWriter';
-import TerminalWindow from '@/components/ui/TerminalWindow';
 import SystemGraphMount from '@/components/three/SystemGraphMount';
 
 export default function Hero() {
@@ -66,7 +65,7 @@ export default function Hero() {
             <span className="font-mono text-sm text-primary-500">00</span>
             <span className="h-px w-8 bg-[var(--border-strong)]" aria-hidden />
             <span className="font-mono text-sm text-muted">
-              <span className="text-primary-500/70">$</span> ./boot-live-systems
+              <span className="text-primary-500/70">$</span> ./ship-reliable-ai
             </span>
           </motion.div>
 
@@ -87,7 +86,7 @@ export default function Hero() {
             <span className="text-faint">·</span>
             <span className="text-muted">{t.hero.openToRemote}</span>
             <span className="hidden sm:inline text-faint">·</span>
-            <span className="hidden sm:inline text-muted">SaaS · APIs · AI agents</span>
+            <span className="hidden sm:inline text-muted">Applied AI · Backend · AI Infra</span>
           </motion.div>
 
           <motion.h1
@@ -118,7 +117,7 @@ export default function Hero() {
           >
             {t.hero.metrics.map((m) => (
               <div key={m.label} className="panel px-3 py-3 bg-[var(--surface)]/88 backdrop-blur-sm">
-                <div className="font-mono text-lg md:text-xl font-bold text-primary-text tabular-nums">
+                <div dir="ltr" className="font-mono text-lg md:text-xl font-bold text-primary-text tabular-nums text-start">
                   {m.value}
                 </div>
                 <div className="mono-label leading-tight">{m.label}</div>
@@ -153,24 +152,6 @@ export default function Hero() {
               <Mail className="w-4 h-4" />
               {t.hero.contactMe}
             </button>
-          </motion.div>
-
-          <motion.div {...reveal(0.35)} className="mt-7 hidden md:block max-w-xl">
-            <TerminalWindow title={t.hero.terminal.prompt}>
-              <div className="space-y-1.5">
-                {t.hero.terminal.commands.map((c) => (
-                  <div key={c.cmd}>
-                    <div className="flex gap-2">
-                      <span className="text-primary-500/80 shrink-0">
-                        {t.hero.terminal.prompt}
-                      </span>
-                      <span className="text-foreground">{c.cmd}</span>
-                    </div>
-                    <div className="text-muted ps-1">{c.out}</div>
-                  </div>
-                ))}
-              </div>
-            </TerminalWindow>
           </motion.div>
         </div>
       </div>

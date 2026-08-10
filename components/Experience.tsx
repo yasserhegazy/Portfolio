@@ -14,9 +14,9 @@ export default function Experience() {
   const isPresent = (period: string) => period.includes('Present') || period.includes('الحالي');
 
   return (
-    <section id="experience" className="relative section-padding bg-surface">
+    <section id="experience" className="relative section-padding">
       <div className="container-custom">
-        <SectionHeader index="03" command="git log --timeline" title={t.experience.title} subtitle={t.experience.subtitle} />
+        <SectionHeader index="02" command="git log --oneline" title={t.experience.title} subtitle={t.experience.subtitle} />
 
         <div className="relative ms-2">
           {/* pipeline rail */}

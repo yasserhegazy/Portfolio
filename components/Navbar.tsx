@@ -24,7 +24,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'ai-workflow', 'education', 'github', 'contact'];
+    const sectionIds = ['home', 'about', 'experience', 'wakib', 'projects', 'ai-workflow', 'skills', 'education', 'github', 'contact'];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -47,12 +47,13 @@ export default function Navbar() {
   const navItems = [
     { name: t.nav.home, href: '#home', i: '00' },
     { name: t.nav.about, href: '#about', i: '01' },
-    { name: t.nav.skills, href: '#skills', i: '02' },
-    { name: t.nav.experience, href: '#experience', i: '03' },
+    { name: t.nav.experience, href: '#experience', i: '02' },
+    { name: t.nav.wakib, href: '#wakib', i: '03' },
     { name: t.nav.projects, href: '#projects', i: '04' },
     { name: t.nav.aiWorkflow, href: '#ai-workflow', i: '05' },
-    { name: t.nav.education, href: '#education', i: '06' },
-    { name: t.nav.contact, href: '#contact', i: '08' },
+    { name: t.nav.skills, href: '#skills', i: '06' },
+    { name: t.nav.education, href: '#education', i: '07' },
+    { name: t.nav.contact, href: '#contact', i: '09' },
   ];
 
   const scrollToSection = (href: string) => {
@@ -92,7 +93,7 @@ export default function Navbar() {
           </motion.a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-4 xl:gap-6">
             {navItems.map((item) => {
               const sectionId = item.href.replace('#', '');
               const isActive = activeSection === sectionId;
@@ -104,11 +105,11 @@ export default function Navbar() {
                     e.preventDefault();
                     scrollToSection(item.href);
                   }}
-                  className={`relative font-mono text-sm transition-colors pb-1 ${
+                  className={`relative font-mono text-sm whitespace-nowrap transition-colors pb-1 ${
                     isActive ? 'text-primary-text' : 'text-muted hover:text-foreground'
                   }`}
                 >
-                  <span className="text-primary-500/50 me-1">{item.i}</span>
+                  <span className="hidden xl:inline text-primary-500/50 me-1">{item.i}</span>
                   {item.name}
                   {isActive && (
                     <motion.div

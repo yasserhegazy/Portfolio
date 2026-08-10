@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono, Space_Grotesk, IBM_Plex_Sans_Arabic } from 'next/font/google';
 import './globals.css';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
@@ -16,30 +16,48 @@ const inter = Inter({
   display: 'swap',
 });
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-display',
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   display: 'swap',
 });
 
+const plexArabic = IBM_Plex_Sans_Arabic({
+  subsets: ['arabic'],
+  variable: '--font-arabic',
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+});
+
+const SITE_TITLE = 'Yasser Hegazy | Applied AI Engineer & Backend-First Full-Stack';
+const SITE_DESC =
+  'Applied AI Engineer and backend-first software engineer building reliable AI products for 1,000+ daily users — RAG, multi-agent systems, FastAPI, Laravel, and Next.js. Open to full-time roles.';
+
 export const metadata: Metadata = {
-  title: 'Yasser Hegazy | Backend-focused Full-Stack Engineer',
-  description: 'Backend-focused Full-Stack Engineer building SaaS platforms, RESTful APIs, real-time systems, dashboards, and AI-integrated workflows with Laravel, FastAPI, Python, and Next.js.',
-  keywords: ['Backend Engineer', 'Full-Stack Engineer', 'Software Engineer', 'System Architecture', 'API Design', 'Laravel', 'FastAPI', 'Next.js', 'React', 'TypeScript', 'PHP', 'Python', 'REST API', 'SaaS', 'AI Engineering', 'RAG', 'LangGraph', 'Yasser Hegazy'],
+  title: SITE_TITLE,
+  description: SITE_DESC,
+  keywords: ['Applied AI Engineer', 'AI Engineer', 'Backend Engineer', 'Full-Stack Engineer', 'RAG', 'Multi-Agent Systems', 'LangGraph', 'LangChain', 'FastAPI', 'Python', 'Laravel', 'Next.js', 'AI Infrastructure', 'WAKIB', 'Yasser Hegazy'],
   authors: [{ name: 'Yasser Hegazy' }],
   creator: 'Yasser Hegazy',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://yasserhegazy.com',
-    title: 'Yasser Hegazy | Backend-focused Full-Stack Engineer',
-    description: 'Backend-focused Full-Stack Engineer building SaaS platforms, APIs, real-time systems, dashboards, and AI-integrated workflows.',
+    title: SITE_TITLE,
+    description: SITE_DESC,
     siteName: 'Yasser Hegazy Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Yasser Hegazy | Backend-focused Full-Stack Engineer',
-    description: 'Backend-focused Full-Stack Engineer building SaaS platforms, APIs, real-time systems, dashboards, and AI-integrated workflows.',
+    title: SITE_TITLE,
+    description: SITE_DESC,
   },
   robots: {
     index: true,
@@ -53,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${plexArabic.variable}`}>
       <body className="font-sans antialiased">
         <ThemeProvider>
           <LanguageProvider>

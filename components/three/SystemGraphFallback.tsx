@@ -10,50 +10,47 @@ type N = { id: string; label: string; x: number; y: number; c: string };
 
 const NODES: N[] = [
   { id: 'yasser', label: 'Yasser', x: 215, y: 150, c: '#fef3c7' },
-  { id: 'api', label: 'API Systems', x: 92, y: 92, c: '#fbbf24' },
-  { id: 'saas', label: 'SaaS', x: 215, y: 46, c: '#fbbf24' },
-  { id: 'ai', label: 'AI Agents', x: 338, y: 92, c: '#a78bfa' },
-  { id: 'realtime', label: 'Realtime', x: 340, y: 214, c: '#fbbf24' },
-  { id: 'data', label: 'Data Layer', x: 88, y: 214, c: '#38bdf8' },
-  { id: 'dashboard', label: 'Dashboards', x: 215, y: 258, c: '#fbbf24' },
-  { id: 'ibra', label: 'IbraAgent', x: 390, y: 150, c: '#fb923c' },
-  { id: 'azzm', label: 'Azzm PM', x: 40, y: 150, c: '#fb923c' },
-  { id: 'bridge', label: 'BridgeAI', x: 305, y: 36, c: '#fb923c' },
-  { id: 'clinic', label: 'Clinic SaaS', x: 124, y: 270, c: '#fb923c' },
-  { id: 'fastapi', label: 'FastAPI', x: 285, y: 132, c: '#f59e0b' },
-  { id: 'laravel', label: 'Laravel', x: 145, y: 132, c: '#f59e0b' },
-  { id: 'rag', label: 'RAG·Vector', x: 382, y: 48, c: '#a78bfa' },
-  { id: 'postgres', label: 'PostgreSQL', x: 128, y: 214, c: '#38bdf8' },
-  { id: 'redis', label: 'Redis', x: 286, y: 224, c: '#38bdf8' },
+  { id: 'reliability', label: 'Self-Healing', x: 150, y: 46, c: '#fbbf24' },
+  { id: 'wakib', label: 'WAKIB.ai', x: 300, y: 52, c: '#fb923c' },
+  { id: 'api', label: 'Backend APIs', x: 74, y: 96, c: '#fbbf24' },
+  { id: 'ai', label: 'AI Systems', x: 352, y: 104, c: '#a78bfa' },
+  { id: 'agents', label: 'Multi-Agent', x: 392, y: 52, c: '#a78bfa' },
+  { id: 'rag', label: 'RAG·Vector', x: 400, y: 150, c: '#a78bfa' },
+  { id: 'bridge', label: 'BridgeAI', x: 38, y: 158, c: '#fb923c' },
+  { id: 'azm', label: 'Azm', x: 388, y: 206, c: '#fb923c' },
+  { id: 'data', label: 'Data Layer', x: 78, y: 214, c: '#38bdf8' },
+  { id: 'realtime', label: 'Realtime', x: 322, y: 224, c: '#fbbf24' },
+  { id: 'postgres', label: 'PostgreSQL', x: 128, y: 264, c: '#38bdf8' },
+  { id: 'raad', label: 'Raad', x: 215, y: 270, c: '#fb923c' },
+  { id: 'redis', label: 'Redis', x: 300, y: 262, c: '#38bdf8' },
 ];
 
 const EDGES: [string, string][] = [
+  ['yasser', 'reliability'],
+  ['yasser', 'wakib'],
   ['yasser', 'api'],
-  ['yasser', 'saas'],
   ['yasser', 'ai'],
-  ['yasser', 'realtime'],
-  ['yasser', 'data'],
-  ['yasser', 'dashboard'],
-  ['yasser', 'ibra'],
-  ['yasser', 'azzm'],
   ['yasser', 'bridge'],
-  ['yasser', 'clinic'],
-  ['api', 'laravel'],
-  ['api', 'fastapi'],
+  ['yasser', 'azm'],
+  ['yasser', 'data'],
+  ['yasser', 'raad'],
+  ['yasser', 'realtime'],
+  ['wakib', 'agents'],
+  ['wakib', 'reliability'],
+  ['wakib', 'rag'],
+  ['ai', 'agents'],
   ['ai', 'rag'],
-  ['ibra', 'fastapi'],
-  ['ibra', 'realtime'],
-  ['azzm', 'laravel'],
-  ['bridge', 'rag'],
-  ['clinic', 'dashboard'],
   ['data', 'postgres'],
   ['realtime', 'redis'],
+  ['reliability', 'redis'],
+  ['raad', 'agents'],
+  ['bridge', 'rag'],
 ];
 
 const byId = (id: string) => NODES.find((n) => n.id === id) as N;
 
-// Representative request path: Yasser → IbraAgent → FastAPI → AI → RAG
-const ROUTE = ['yasser', 'ibra', 'fastapi', 'ai', 'rag'];
+// Representative request path: Yasser → WAKIB → Multi-Agent → RAG
+const ROUTE = ['yasser', 'wakib', 'agents', 'rag'];
 const ROUTE_PATH = ROUTE.map((id, i) => {
   const n = byId(id);
   return `${i === 0 ? 'M' : 'L'}${n.x},${n.y}`;
@@ -67,7 +64,7 @@ export default function SystemGraphFallback() {
       viewBox="0 0 430 300"
       className="w-full h-full max-h-[420px]"
       role="img"
-      aria-label="Portfolio systems diagram centered on Yasser, connected to SaaS, API systems, AI agents, dashboards, realtime flows, data, and featured projects"
+      aria-label="Portfolio systems diagram centered on Yasser, connected to WAKIB.ai, AI systems, multi-agent and RAG pipelines, backend APIs, realtime flows, data, and featured projects"
     >
       {EDGES.map(([a, b], i) => {
         const na = byId(a);
@@ -142,7 +139,7 @@ export default function SystemGraphFallback() {
         fontSize="9"
         fill="var(--text-faint)"
       >
-        {reduce ? 'portfolio systems map' : 'POST /projects/ibra-agent/message  ->  live trace'}
+        {reduce ? 'portfolio systems map' : 'POST /wakib/story/generate  ->  live trace'}
       </text>
     </svg>
   );

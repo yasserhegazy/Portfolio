@@ -13,9 +13,9 @@ export default function Education() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="education" className="relative section-padding">
+    <section id="education" className="relative section-padding bg-surface">
       <div className="container-custom">
-        <SectionHeader index="06" command="cat credentials.md" title={t.education.title} subtitle={t.education.subtitle} />
+        <SectionHeader index="07" command="cat credentials.md" title={t.education.title} subtitle={t.education.subtitle} />
 
         {/* Degree */}
         <motion.div
@@ -51,30 +51,28 @@ export default function Education() {
             {t.education.description}
           </p>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="panel-elevated p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <BookOpen className="w-4 h-4 text-primary-500" />
-                <h4 className="font-semibold text-sm text-foreground">{t.education.activitiesTitle}</h4>
-              </div>
-              <p className="text-sm text-muted leading-relaxed">{t.education.activities}</p>
+          <div className="panel-elevated p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <BookOpen className="w-4 h-4 text-primary-500" />
+              <h4 className="font-semibold text-sm text-foreground">{t.education.activitiesTitle}</h4>
             </div>
-            <div className="panel-elevated p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Users className="w-4 h-4 text-primary-500" />
-                <h4 className="font-semibold text-sm text-foreground">{t.education.leadership}</h4>
-              </div>
-              <div className="space-y-2.5">
-                {t.education.leadershipItems.map((item) => (
-                  <div key={item.title}>
-                    <p className="text-sm font-semibold text-foreground">{item.title}</p>
-                    <p className="text-xs text-muted leading-relaxed">{item.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <p className="text-sm text-muted leading-relaxed">{t.education.activities}</p>
           </div>
         </motion.div>
+
+        {/* Leadership & Engagement */}
+        <div className="mb-3 flex items-center gap-2">
+          <Users className="w-4 h-4 text-primary-500" />
+          <h3 className="font-mono text-sm text-primary-text">{`// ${t.education.engagementTitle}`}</h3>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+          {t.education.engagement.map((item, i) => (
+            <Panel key={item.title} delay={(i % 3) * 0.06} interactive className="!p-5">
+              <p className="font-semibold text-sm text-foreground mb-1.5 leading-snug">{item.title}</p>
+              <p className="text-xs text-muted leading-relaxed">{item.description}</p>
+            </Panel>
+          ))}
+        </div>
 
         {/* Certifications */}
         <h3 className="font-mono text-sm text-primary-text mb-4">{`// ${t.education.certificationsTitle}`}</h3>
