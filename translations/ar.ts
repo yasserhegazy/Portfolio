@@ -141,6 +141,16 @@ export const ar: TranslationType = {
     subtitle: 'منصة ذكاء اصطناعي ثنائية اللغة، مملوكة من البداية للنهاية',
     liveLabel: 'زيارة wakib.ai',
     liveUrl: 'https://www.wakib.ai',
+    preview: {
+      badge: 'مباشر',
+      open: 'افتح التطبيق المباشر',
+      hint: 'جرّب المنتج الحقيقي — أكثر من 1,000 مستخدم يوميًا',
+      shots: [
+        'الواجهة · English',
+        'الواجهة · العربية',
+        'مقال · محتوى مولّد بالذكاء الاصطناعي',
+      ],
+    },
     starLabels: {
       situation: 'المشكلة',
       action: 'ما بنيته',

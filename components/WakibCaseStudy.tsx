@@ -1,20 +1,30 @@
 'use client';
 
-import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { translations } from '@/translations';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, CircleDot, Hammer, TrendingUp, Check } from 'lucide-react';
 import PipelineFlow from '@/components/ui/PipelineFlow';
+import WakibLivePreview from '@/components/ui/WakibLivePreview';
 
 const STAR_ICONS = [CircleDot, Hammer, TrendingUp] as const;
+
+const LIVE_SHOTS = [
+  '/images/projects/wakib-live/feed-en.webp',
+  '/images/projects/wakib-live/feed-ar.webp',
+  '/images/projects/wakib-live/article-en.webp',
+] as const;
 
 export default function WakibCaseStudy() {
   const { language } = useLanguage();
   const t = translations[language];
   const w = t.wakib;
   const reduce = useReducedMotion();
-  const [hasShot, setHasShot] = useState(true);
+
+  const liveShots = LIVE_SHOTS.map((src, i) => ({
+    src,
+    caption: w.preview.shots[i] ?? '',
+  }));
 
   const star = [
     { label: w.starLabels.situation, text: w.situation },
@@ -80,30 +90,16 @@ export default function WakibCaseStudy() {
           ))}
         </motion.div>
 
-        {/* Optional live screenshot in a browser frame */}
-        {hasShot && (
-          <motion.div {...reveal(0.15)} className="mt-10">
-            <div className="panel overflow-hidden">
-              <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[var(--border)] bg-[var(--surface-elevated)]">
-                <span className="flex gap-1.5" aria-hidden>
-                  <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-                  <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-                  <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
-                </span>
-                <span className="flex-1 text-center font-mono text-xs text-faint truncate">wakib.ai</span>
-                <span className="w-12" aria-hidden />
-              </div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/projects/wakib.png"
-                alt="WAKIB.ai — live bilingual AI news platform"
-                loading="lazy"
-                onError={() => setHasShot(false)}
-                className="w-full h-auto block"
-              />
-            </div>
-          </motion.div>
-        )}
+        {/* Live product preview — auto-cycling bilingual screens, click to launch */}
+        <motion.div {...reveal(0.15)} className="mt-10">
+          <WakibLivePreview
+            liveUrl={w.liveUrl}
+            badge={w.preview.badge}
+            openLabel={w.preview.open}
+            hint={w.preview.hint}
+            shots={liveShots}
+          />
+        </motion.div>
 
         {/* STAR story */}
         <div className="mt-12 grid md:grid-cols-3 gap-4">
