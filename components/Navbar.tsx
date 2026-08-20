@@ -75,7 +75,7 @@ export default function Navbar() {
       }`}
     >
       <div className="container-custom">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-x-6 xl:gap-x-10">
           {/* Logo */}
           <motion.a
             href="#home"
@@ -83,7 +83,7 @@ export default function Navbar() {
               e.preventDefault();
               scrollToSection('#home');
             }}
-            className="font-mono text-lg font-bold"
+            className="font-mono text-lg font-bold shrink-0 me-2"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
           >
@@ -93,7 +93,7 @@ export default function Navbar() {
           </motion.a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-4 xl:gap-6">
+          <div className="hidden lg:flex items-center gap-5 xl:gap-7">
             {navItems.map((item) => {
               const sectionId = item.href.replace('#', '');
               const isActive = activeSection === sectionId;

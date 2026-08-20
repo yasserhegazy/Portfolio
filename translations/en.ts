@@ -139,6 +139,16 @@ export const en = {
     subtitle: 'A bilingual AI intelligence platform, owned end to end',
     liveLabel: 'Visit wakib.ai',
     liveUrl: 'https://www.wakib.ai',
+    preview: {
+      badge: 'Live',
+      open: 'Open live app',
+      hint: 'Explore the real product — 1,000+ daily users',
+      shots: [
+        'Feed · English',
+        'Feed · العربية',
+        'Article · AI-generated story',
+      ],
+    },
     starLabels: {
       situation: 'The problem',
       action: 'What I built',
