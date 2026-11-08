@@ -33,7 +33,7 @@ export const en = {
       { value: '1,000+', label: 'daily users on WAKIB' },
       { value: '+18%', label: 'API reliability' },
       { value: '30→80%', label: 'test coverage' },
-      { value: '92.54', label: 'GPA · ranked 2nd' },
+      { value: '92.54', label: 'GPA · ranked 4th' },
     ],
     terminal: {
       prompt: 'yasser@ai:~$',
@@ -58,7 +58,7 @@ export const en = {
     location: 'Location',
     locationValue: 'Palestine · Remote-friendly',
     university: 'Education',
-    universityValue: 'Computer Engineering, IUG — Ranked 2nd · 92.54/100',
+    universityValue: 'Computer Engineering, IUG — Ranked 4th · 92.54/100',
     languages: 'Languages',
     languagesValue: 'Arabic (Native), English (Professional, B2+)',
     phone: 'Status',
@@ -84,7 +84,7 @@ export const en = {
       {
         id: 2,
         company: 'Alif Venture Studio',
-        position: 'AI Product Engineer',
+        position: 'AI Engineer',
         period: 'Jun 2026 - Sep 2026',
         location: 'Palestine · Remote',
         responsibilities: [
@@ -99,7 +99,7 @@ export const en = {
         id: 3,
         company: 'Approved Technologies W.L.L',
         position: 'Software Engineer',
-        period: 'Sep 2025 - May 2026',
+        period: 'Oct 2025 - May 2026',
         location: 'Palestine · Hybrid',
         responsibilities: [
           'Took ownership of core backend modules in a high-traffic Laravel SaaS platform with inconsistent responses and elevated error rates',
@@ -248,9 +248,9 @@ export const en = {
       {
         id: 8,
         title: 'Sweet Moments',
-        subtitle: 'Arabic E-Commerce for Handmade Gift Boxes',
+        subtitle: 'Freelance · Arabic E-Commerce for Gift Boxes',
         description:
-          'A production Arabic (RTL), mobile-first store for a handmade gift and activity-box brand — catalog, per-person box pricing, WhatsApp-based ordering, order tracking, and a full owner admin with sales analytics.',
+          'Freelance project: a production Arabic (RTL), mobile-first store for a handmade gift and activity-box brand — catalog, per-person box pricing, WhatsApp-based ordering, order tracking, and a full owner admin with sales analytics.',
         techStack: ['React', 'TypeScript', 'Vite', 'Express 5', 'PostgreSQL', 'Drizzle ORM', 'TanStack Query', 'Tailwind CSS'],
         architecture: [
           'pnpm monorepo with a contract-first OpenAPI spec generating typed React Query hooks and Zod schemas',
@@ -358,7 +358,7 @@ export const en = {
     university: 'Islamic University of Gaza',
     period: 'Sep 2021 - Mar 2026',
     gpa: 'GPA: 92.54/100 · 3.8/4.0',
-    achievement: 'Ranked 2nd in Department',
+    achievement: 'Ranked 4th in Department',
     description:
       'Computer Engineering graduate with strong performance across software engineering, algorithms, databases, system design, networks, security, operating systems, and computer architecture. Graduation project: BridgeAI, a multi-agent AI platform for automated requirements engineering.',
     activities:

@@ -35,7 +35,7 @@ export const ar: TranslationType = {
       { value: '1,000+', label: 'مستخدم يومي على واكب' },
       { value: '+18%', label: 'اعتمادية الـ API' },
       { value: '30→80%', label: 'تغطية الاختبارات' },
-      { value: '92.54', label: 'المعدل · الثاني على القسم' },
+      { value: '92.54', label: 'المعدل · الرابع على القسم' },
     ],
     terminal: {
       prompt: 'yasser@ai:~$',
@@ -60,7 +60,7 @@ export const ar: TranslationType = {
     location: 'الموقع',
     locationValue: 'فلسطين · مرحّب بالعمل عن بُعد',
     university: 'التعليم',
-    universityValue: 'هندسة حاسوب، الجامعة الإسلامية — الثاني على القسم · 92.54/100',
+    universityValue: 'هندسة حاسوب، الجامعة الإسلامية — الرابع على القسم · 92.54/100',
     languages: 'اللغات',
     languagesValue: 'العربية (الأم)، الإنجليزية (احترافية، B2+)',
     phone: 'الحالة',
@@ -86,7 +86,7 @@ export const ar: TranslationType = {
       {
         id: 2,
         company: 'Alif Venture Studio',
-        position: 'مهندس منتج ذكاء اصطناعي',
+        position: 'مهندس ذكاء اصطناعي',
         period: 'يونيو 2026 - سبتمبر 2026',
         location: 'فلسطين · عن بُعد',
         responsibilities: [
@@ -101,7 +101,7 @@ export const ar: TranslationType = {
         id: 3,
         company: 'Approved Technologies W.L.L',
         position: 'مهندس برمجيات',
-        period: 'سبتمبر 2025 - مايو 2026',
+        period: 'أكتوبر 2025 - مايو 2026',
         location: 'فلسطين · هجين',
         responsibilities: [
           'أخذت ملكية وحدات Backend أساسية في منصة Laravel SaaS عالية الحركة تعاني من استجابات غير متسقة ومعدلات أخطاء مرتفعة',
@@ -250,9 +250,9 @@ export const ar: TranslationType = {
       {
         id: 8,
         title: 'لحظات حلوة (Sweet Moments)',
-        subtitle: 'متجر إلكتروني عربي لصناديق الهدايا اليدوية',
+        subtitle: 'عمل حر · متجر إلكتروني لصناديق الهدايا',
         description:
-          'متجر عربي (RTL) إنتاجي يركّز على الهاتف لعلامة صناديق هدايا وأنشطة يدوية — كتالوج، وتسعير الصناديق حسب عدد الأشخاص، وطلب عبر واتساب، وتتبّع الطلبات، ولوحة إدارة كاملة مع تحليلات المبيعات.',
+          'مشروع عمل حر: متجر عربي (RTL) إنتاجي يركّز على الهاتف لعلامة صناديق هدايا وأنشطة يدوية — كتالوج، وتسعير الصناديق حسب عدد الأشخاص، وطلب عبر واتساب، وتتبّع الطلبات، ولوحة إدارة كاملة مع تحليلات المبيعات.',
         techStack: ['React', 'TypeScript', 'Vite', 'Express 5', 'PostgreSQL', 'Drizzle ORM', 'TanStack Query', 'Tailwind CSS'],
         architecture: [
           'Monorepo بـ pnpm مع مواصفة OpenAPI تولّد hooks مكتوبة الأنواع ومخططات Zod',
@@ -360,7 +360,7 @@ export const ar: TranslationType = {
     university: 'الجامعة الإسلامية - غزة',
     period: 'سبتمبر 2021 - مارس 2026',
     gpa: 'المعدل: 92.54/100 · 3.8/4.0',
-    achievement: 'الثاني على القسم',
+    achievement: 'الرابع على القسم',
     description:
       'خريج هندسة حاسوب بأداء قوي في هندسة البرمجيات والخوارزميات وقواعد البيانات وتصميم الأنظمة والشبكات والأمن وأنظمة التشغيل ومعمارية الحاسوب. مشروع التخرج: BridgeAI، منصة ذكاء اصطناعي متعددة الوكلاء لهندسة المتطلبات الآلية.',
     activities:
